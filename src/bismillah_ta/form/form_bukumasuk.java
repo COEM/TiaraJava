@@ -32,6 +32,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
      */
     public form_bukumasuk() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

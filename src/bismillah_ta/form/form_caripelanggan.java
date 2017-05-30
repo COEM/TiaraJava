@@ -9,27 +9,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import koneksi.koneksi;
-import net.proteanit.sql.DbUtils;
-import bismillah_ta.form.form_suratpemesanan;
-import module.caribuku;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import koneksi.koneksi;
+import net.proteanit.sql.DbUtils;
+import module.caripelanggan;
 
 
 /**
  *
  * @author Tiara Ridha
  */
-public class form_caribuku extends javax.swing.JFrame {
+public class form_caripelanggan extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    
-    public module.caribuku fab = null;
-    
-    public form_caribuku() {
+    public form_caripelanggan() {
         initComponents();
         setLocationRelativeTo(null);
         tampildata();
@@ -45,19 +41,26 @@ public class form_caribuku extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        caribukuTxt = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Cari Buku");
+        jLabel1.setText("Form Cari Pelanggan");
 
-        caribukuTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel2.setText("Cari Pelanggan");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                caribukuTxtKeyReleased(evt);
+                jTextField1KeyReleased(evt);
             }
         });
 
@@ -79,8 +82,6 @@ public class form_caribuku extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel2.setText("Form Cari Buku");
-
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,35 +95,38 @@ public class form_caribuku extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 15, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(34, 34, 34)
-                                .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jLabel2)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                                .addGap(137, 137, 137)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(29, 29, 29))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel2)
-                .addGap(28, 28, 28)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -130,46 +134,50 @@ public class form_caribuku extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        bismillah_ta.form.form_suratpemesanan yo = new bismillah_ta.form.form_suratpemesanan();
+         bismillah_ta.form.form_suratpemesanan yo = new bismillah_ta.form.form_suratpemesanan();
         yo.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void caribukuTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuTxtKeyReleased
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         // TODO add your handling code here:
         try {
                Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku where kode_buku like '%"+caribukuTxt.getText()+"%'"
-                       + "or nama_buku like '%"+caribukuTxt.getText()+"%'");
+               ResultSet rs = st.executeQuery("Select kd_pelanggan,nama_pelanggan,alamat_pelanggan from pelanggan where kd_pelanggan like '%"+jTextField1.getText()+"%'"
+                       + "or nama_pelanggan like '%"+jTextField1.getText()+"%'");
                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
            }
-    }//GEN-LAST:event_caribukuTxtKeyReleased
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
          int x = jTable1.getSelectedRow();
         if (x != -1)
         {
-            caribuku.kdBuku = jTable1.getValueAt(x, 0).toString();
-            caribuku.namaBuku = jTable1.getValueAt(x, 1).toString();
-            caribuku.hargaBuku = jTable1.getValueAt(x, 2).toString();
+            caripelanggan.kdPelanggan = jTable1.getValueAt(x, 0).toString();
+            caripelanggan.namaPelanggan = jTable1.getValueAt(x, 1).toString();
+            caripelanggan.alamatPelanggan = jTable1.getValueAt(x, 2).toString();
         } 
     }//GEN-LAST:event_jTable1MouseClicked
 
     public final void tampildata() {
     DefaultTableModel tabelBarang = new DefaultTableModel();
-    tabelBarang.addColumn("KODE BUKU");
-    tabelBarang.addColumn("NAMA BUKU");
-    tabelBarang.addColumn("HARGA");
+    tabelBarang.addColumn("KODE PELANGGAN");
+    tabelBarang.addColumn("NAMA PELANGGAN");
+    tabelBarang.addColumn("ALAMAT PELANGGAN");
     try {
         Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku");
+               ResultSet rs = st.executeQuery("Select kd_pelanggan,nama_pelanggan,alamat_pelanggan from pelanggan");
         while (rs.next()) {
             tabelBarang.addRow(new Object[]{
                 rs.getString(1),
@@ -182,7 +190,6 @@ public class form_caribuku extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Ada kesalahan" + e);
     }
 }
-    
     /**
      * @param args the command line arguments
      */
@@ -200,13 +207,13 @@ public class form_caribuku extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(form_caribuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(form_caripelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(form_caribuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(form_caripelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(form_caribuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(form_caripelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(form_caribuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(form_caripelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -214,17 +221,17 @@ public class form_caribuku extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new form_caribuku().setVisible(true);
+                new form_caripelanggan().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField caribukuTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

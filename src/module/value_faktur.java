@@ -26,9 +26,9 @@ public class value_faktur {
             ResultSet rs = st.executeQuery("SELECT count(*) as value from buku_masuk` where tgl=date(now())");
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
-               Date date = new Date();
-               date = rs.getDate("tgl_masuk");
-               //Date tgl = rs.getString("tgl");
+//               Date date = new Date();
+//               //date = rs.getDate("tgl_masuk");
+//               ate tgl = rs.getString("tgl");
             }
             DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
             Date date = new Date();

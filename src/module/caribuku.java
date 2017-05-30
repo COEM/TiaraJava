@@ -11,17 +11,17 @@ package module;
  */
 
 public class caribuku {
-    public String kdBuku, namaBuku, hargaBuku;
+    public static String kdBuku, namaBuku, hargaBuku;
  
-    public String getkdBuku() {
+    public static String getkdBuku() {
         return kdBuku;
     }
  
-    public String getNamaBuku() {
+    public static String getNamaBuku() {
         return namaBuku;
     }
  
-    public String getHargaBuku() {
+    public static String getHargaBuku() {
         return hargaBuku;
     }
     

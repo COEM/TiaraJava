@@ -12,9 +12,14 @@ import java.sql.Statement;
 import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
 import bismillah_ta.form.form_caribuku;
+import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import module.caribuku;
-
+import module.caripelanggan;
 /**
  *
  * @author Tiara Ridha
@@ -28,6 +33,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
     
     public form_suratpemesanan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -60,6 +66,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         kd_pelanggan = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         nama_pelanggan = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         kode_buku = new javax.swing.JTextField();
@@ -75,6 +82,11 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel2.setText("No.Surat Pemesanan");
 
@@ -86,9 +98,11 @@ public class form_suratpemesanan extends javax.swing.JFrame {
 
         jLabel5.setText("Tanggal");
 
-        jLabel6.setText("Nama Sales");
+        tgl_penjualan.setEditable(false);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel6.setText("Kode Sales");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "kd_sales" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,9 +117,9 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Simpan");
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Cancel");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -159,6 +173,13 @@ public class form_suratpemesanan extends javax.swing.JFrame {
 
         jLabel4.setText("Nama Pelanggan");
 
+        jButton7.setText("Cari Kode");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -172,8 +193,12 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kd_pelanggan)
-                            .addComponent(nama_pelanggan)))
+                            .addComponent(nama_pelanggan)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(kd_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton7)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(51, 51, 51)
@@ -186,8 +211,9 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(kd_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(9, 9, 9)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton7))
+                .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(nama_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -222,6 +248,11 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         jLabel11.setText("Harga");
 
         jButton1.setText("add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Edit");
 
@@ -266,9 +297,9 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -342,7 +373,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -354,42 +385,13 @@ public class form_suratpemesanan extends javax.swing.JFrame {
 
     private void kd_pelangganKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kd_pelangganKeyReleased
         // TODO add your handling code here:
-        try {
-               Connection con = koneksi.GetConnection();
-               Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kd_pelanggan,nama_pelanggan,alamat_pelanggan from pelanggan "
-                       + "where kd_pelanggan like '%"+kd_pelanggan.getText()+"%'");
-               while(rs.next()){
-                    //kd_pelanggan.setText(rs.getString("kd_pelanggan"));
-                    nama_pelanggan.setText(rs.getString("nama_pelanggan"));
-                    alamat_pelanggan.setText(rs.getString("alamat_pelanggan"));
-                    
-                    if(kd_pelanggan.getText()== "")
-                        {
-                            nama_pelanggan.setText("");
-                            alamat_pelanggan.setText("");
-                        }
-                }
-               
-           } catch (SQLException sqlEx) {
-               System.out.println(sqlEx.getMessage());
-           }
     }//GEN-LAST:event_kd_pelangganKeyReleased
 
     private void kd_pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kd_pelangganMouseClicked
         // TODO add your handling code here:
-        //int x = jTable1.getSelectedRow();
+
         kd_pelanggan.getSelectedText();
-//        int x = kd_pelanggan.getSelectedText();
-//        if (x != -1)
-//        {
-//            kd_pelanggan.setText(jTable1.getValueAt(x, 0).toString());
-//            kd_sales.setText(jTable1.getValueAt(x, 1).toString());
-//            nama_pelanggan.setText(jTable1.getValueAt(x, 2).toString());
-//            alamat_pelanggan.setText(jTable1.getValueAt(x, 3).toString());
-//            no_telp.setText(jTable1.getValueAt(x, 4).toString());
-//            limits.setText(jTable1.getValueAt(x, 5).toString());
-//        } 
+
     }//GEN-LAST:event_kd_pelangganMouseClicked
 
     private void kode_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kode_bukuActionPerformed
@@ -403,28 +405,137 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         //fDB.fAB = this;
         fDB.setVisible(true);
         fDB.setResizable(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        itemTerpilih();
+        itemPelanggan();
+        tgl_penjualan.setText(tmpltgl());
+        dataFromDataBaseToComboBox();
+        tampilDataBuku();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+         form_caripelanggan fcp = new form_caripelanggan();
+        fcp.setVisible(true);
+        fcp.setResizable(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        simpanData();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static String tmpltgl(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        return
+                dateFormat.format(date);
+    }
+     public void dataFromDataBaseToComboBox(){
+
+        try {
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT kd_sales from sales");
+            
+            while (rs.next()) {                
+                jComboBox1.addItem(rs.getString("kd_sales"));
+            }
+             
+            rs.last();
+            int jumlahdata = rs.getRow();
+            rs.first();
+             
+        } catch (SQLException e) {
+        }
+     }
+    
     public void itemTerpilih(){
-    //module.caribuku fDB = new module.caribuku();
-    //fDB.fab = this;
-    module.caribuku mdb = new module.caribuku();
-    kode_buku.setText(mdb.kdBuku);
-    nama_buku.setText(mdb.namaBuku);
-    hrg_satuan.setText(mdb.hargaBuku);
+    kode_buku.setText(caribuku.kdBuku);
+    nama_buku.setText(caribuku.namaBuku);
+    hrg_satuan.setText(caribuku.hargaBuku);
 }
+    public void itemPelanggan(){
+        kd_pelanggan.setText(caripelanggan.kdPelanggan);
+        nama_pelanggan.setText(caripelanggan.alamatPelanggan);
+        alamat_pelanggan.setText(caripelanggan.alamatPelanggan);
+    }
+    
+     public void simpanData()
+    {
+        try{
+                String value1 = no_penjualan.getText();
+                String value2 = kode_buku.getText();
+                String valuea = stok.getText();
+                int value3 = Integer.parseInt(valuea);
+               // String valueb = hrg_satuan.getText();
+                //int value4 = Integer.parseInt(valueb);
+                
+                if("".equals(kode_buku.getText()) || "".equals(nama_buku.getText()) ||
+                    "".equals(stok.getText()) || "".equals(hrg_satuan.getText()))
+                {
+                    JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+                else 
+                {
+                String sql = "insert into detail_sp values(?,?,?)";
+                Connection con = koneksi.GetConnection();
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, value1);
+                pst.setString(2, value2);
+                pst.setInt(3, value3);
+                pst.execute();
+                
+                JOptionPane.showMessageDialog(this,"berhasil");
+                
+                }
+                kosong();
+                tampilDataBuku();
+                
+        }
+        catch (Exception e)
+        {
+             System.out.println(e.getLocalizedMessage().toString());
+        }
+        
+    }
+     
+     public void kosong()
+    {
+        kode_buku.setText("");
+        nama_buku.setText("");
+        stok.setText("");
+        hrg_satuan.setText("");
+    }
+     
+     public void tampilDataBuku(){
+        try {
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT kd_buku,jmlh,nama_buku,hrg_satuan FROM `detail_sp`"
+                    + " INNER join data_buku on kd_buku = '"+kode_buku.getText()+"'");
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set the bus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -460,6 +571,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
