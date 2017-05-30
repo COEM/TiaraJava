@@ -12,6 +12,7 @@ import java.sql.Statement;
 import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
 import bismillah_ta.form.form_suratpemesanan;
+import module.caribuku;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,7 +26,7 @@ public class form_caribuku extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     
-    public module.caribuku fab = null;
+//    public module.caribuku fab = null;
     
     public form_caribuku() {
         initComponents();
@@ -42,7 +43,7 @@ public class form_caribuku extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        caribuku = new javax.swing.JTextField();
+        caribukuTxt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -58,9 +59,9 @@ public class form_caribuku extends javax.swing.JFrame {
 
         jLabel1.setText("Cari Buku");
 
-        caribuku.addKeyListener(new java.awt.event.KeyAdapter() {
+        caribukuTxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                caribukuKeyReleased(evt);
+                caribukuTxtKeyReleased(evt);
             }
         });
 
@@ -116,7 +117,7 @@ public class form_caribuku extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(34, 34, 34)
-                                .addComponent(caribuku, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel4)
@@ -129,8 +130,7 @@ public class form_caribuku extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))))
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
                         .addComponent(jLabel2)))
@@ -147,7 +147,7 @@ public class form_caribuku extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(caribuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,30 +173,39 @@ public class form_caribuku extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        bismillah_ta.form.form_suratpemesanan yo = new bismillah_ta.form.form_suratpemesanan();
+                yo.setVisible(true); 
+                this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void caribukuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyReleased
+    private void caribukuTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuTxtKeyReleased
         // TODO add your handling code here:
         try {
                Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku where kode_buku like '%"+caribuku.getText()+"%'"
-                       + "or nama_buku like '%"+caribuku.getText()+"%'");
+               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku where kode_buku like '%"+caribukuTxt.getText()+"%'"
+                       + "or nama_buku like '%"+caribukuTxt.getText()+"%'");
                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
            }
-    }//GEN-LAST:event_caribukuKeyReleased
+    }//GEN-LAST:event_caribukuTxtKeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+//        caribuku buku = new caribuku();
+//        System.out.println("TEST");
          int x = jTable1.getSelectedRow();
+//         System.out.println(x);
         if (x != -1)
         {
-            fab.kdBuku = jTable1.getValueAt(x, 0).toString();
-            fab.namaBuku = jTable1.getValueAt(x, 1).toString();
-            fab.hargaBuku = jTable1.getValueAt(x, 2).toString();
+//            System.out.println(jTable1.getValueAt(x, 0).toString());
+            caribuku.kdBuku = jTable1.getValueAt(x, 0).toString();
+            caribuku.namaBuku = jTable1.getValueAt(x, 1).toString();
+            caribuku.hargaBuku = jTable1.getValueAt(x, 2).toString();
+            
+//            System.out.println(caribuku.kdBuku);
+//            fab.hargaBuku = jTable1.getValueAt(x, 2).toString();
 //            jTextField1.setText(jTable1.getValueAt(x, 0).toString());
 //            jTextField2.setText(jTable1.getValueAt(x, 1).toString());
 //            jTextField2.setText(jTable1.getValueAt(x, 2).toString());
@@ -262,7 +271,7 @@ public class form_caribuku extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField caribuku;
+    private javax.swing.JTextField caribukuTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
