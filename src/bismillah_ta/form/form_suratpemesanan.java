@@ -420,7 +420,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
          form_caripelanggan fcp = new form_caripelanggan();
-        fcp.setVisible(true);
+            fcp.setVisible(true);
         fcp.setResizable(false);
         this.setVisible(false);
     }//GEN-LAST:event_jButton7ActionPerformed
