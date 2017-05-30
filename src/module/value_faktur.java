@@ -23,12 +23,9 @@ public class value_faktur {
             int value = 0;
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT count(*) as value from buku_masuk` where tgl=date(now())");
+            ResultSet rs = st.executeQuery("SELECT count(*) as value from buku_masuk where tgl_masuk=date(now())");
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
-//               Date date = new Date();
-//               //date = rs.getDate("tgl_masuk");
-//               ate tgl = rs.getString("tgl");
             }
             DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
             Date date = new Date();

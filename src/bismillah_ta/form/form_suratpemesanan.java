@@ -517,8 +517,8 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT kd_buku,jmlh,nama_buku,hrg_satuan FROM `detail_sp`"
-                    + " INNER join data_buku on kd_buku = '"+kode_buku.getText()+"'");
+            ResultSet rs = st.executeQuery("SELECT kd_buku,jmlh,nama_buku,hrg_satuan FROM detail_sp"
+                    + " INNER join data_buku on '"+kode_buku.getText()+"' = kode_buku");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());

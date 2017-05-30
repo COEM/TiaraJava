@@ -20,6 +20,8 @@ import module.value_faktur;
 import bismillah_ta.form.form_bukubaru;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import module.bukumasuk;
+import module.caribuku;
 
 /**
  *
@@ -30,6 +32,9 @@ public class form_bukumasuk extends javax.swing.JFrame {
     /**
      * Creates new form form_bukumasuk
      */
+    int selectedItem;
+    
+    
     public form_bukumasuk() {
         initComponents();
         setLocationRelativeTo(null);
@@ -61,11 +66,15 @@ public class form_bukumasuk extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jTextField5 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -82,9 +91,27 @@ public class form_bukumasuk extends javax.swing.JFrame {
 
         jLabel4.setText("Kode Suplier");
 
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("No. PO");
 
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField3KeyReleased(evt);
+            }
+        });
+
         jLabel6.setText("Lokasi");
+
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField4KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,6 +146,11 @@ public class form_bukumasuk extends javax.swing.JFrame {
         });
 
         jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("jButton4");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +161,13 @@ public class form_bukumasuk extends javax.swing.JFrame {
 
         jTextField5.setEditable(false);
         jTextField5.setBackground(new java.awt.Color(204, 204, 204));
+
+        jButton5.setText("Hapus Item");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,24 +190,29 @@ public class form_bukumasuk extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(179, 179, 179)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(179, 179, 179)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jButton5))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -198,7 +242,9 @@ public class form_bukumasuk extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -222,6 +268,10 @@ public class form_bukumasuk extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTextField1.setText(value_faktur.getVal());
         jTextField5.setText(tmpltgl());
+        jTextField2.setText(bukumasuk.kdSuplier);
+        jTextField3.setText(bukumasuk.noPO);
+        jTextField4.setText(bukumasuk.lokasi);
+        
         tampilDataBuku();
     }//GEN-LAST:event_formWindowActivated
 
@@ -234,13 +284,56 @@ public class form_bukumasuk extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+        selectedItem = jTable1.getSelectedRow();
         
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         simpanData();
+        bukumasuk.setNull();
+        jTextField2.setText("");
+        jTextField3.setText(null);
+        jTextField4.setText(null);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        setSuplier();
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        bukumasuk.setNull();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+        // TODO add your handling code here:
+        setSuplier();
+      
+    }//GEN-LAST:event_jTextField3KeyReleased
+
+    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+        // TODO add your handling code here:
+        setSuplier();
+    }//GEN-LAST:event_jTextField4KeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        deleteTable();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+            //nah gendoks iye mastahh
+            deleteItemTable(selectedItem);
+            selectedItem = -1;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +365,38 @@ public class form_bukumasuk extends javax.swing.JFrame {
         Date date = new Date();
         return
                 dateFormat.format(date);
+    }
+    
+    public void deleteTable(){
+        try {
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            st.executeUpdate("Delete from data_buku where no_faktur='"+jTextField1.getText()+"'");
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            tampilDataBuku();
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+        }
+    }
+    
+    public void deleteItemTable(int x){
+//        int x = jTable1.getSelectedRow();
+        if (x != -1)
+        {
+            //yang mane form nye
+             try {
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            st.executeUpdate("Delete from data_buku where no_faktur='"+jTextField1.getText()+"' and kode_buku='"+jTable1.getValueAt(x, 0)+"'");
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            tampilDataBuku();
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+        }
+//             = jTable1.getValueAt(x, 0).toString();
+//            caripelanggan.namaPelanggan = jTable1.getValueAt(x, 1).toString();
+//            caripelanggan.alamatPelanggan = jTable1.getValueAt(x, 2).toString();
+        } 
     }
     
     public void tampilDataBuku(){
@@ -360,6 +485,13 @@ public class form_bukumasuk extends javax.swing.JFrame {
         
     }
     
+    public void setSuplier(){
+        //lupak haha
+        bukumasuk.kdSuplier = jTextField2.getText();
+        bukumasuk.noPO = jTextField3.getText();
+        bukumasuk.lokasi = jTextField4.getText();
+    }
+    
         
 //System.out.println("S"+dateFormat.format(date)+(id+1));
     public static void main(String args[]) {
@@ -399,6 +531,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
