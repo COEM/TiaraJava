@@ -75,6 +75,11 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel2.setText("No.Surat Pemesanan");
 
@@ -266,9 +271,9 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -403,15 +408,21 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         //fDB.fAB = this;
         fDB.setVisible(true);
         fDB.setResizable(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        itemTerpilih();
+    }//GEN-LAST:event_formWindowActivated
 
     public void itemTerpilih(){
     //module.caribuku fDB = new module.caribuku();
     //fDB.fab = this;
-    module.caribuku mdb = new module.caribuku();
-    kode_buku.setText(mdb.kdBuku);
-    nama_buku.setText(mdb.namaBuku);
-    hrg_satuan.setText(mdb.hargaBuku);
+//    module.caribuku mdb = new module.caribuku();
+    kode_buku.setText(caribuku.kdBuku);
+    nama_buku.setText(caribuku.namaBuku);
+    hrg_satuan.setText(caribuku.hargaBuku);
 }
     /**
      * @param args the command line arguments
