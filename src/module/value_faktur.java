@@ -18,9 +18,6 @@ import koneksi.koneksi;
  * @author Tiara Ridha
  */
 public class value_faktur {
-    public static void main(String[] args) {
-        System.out.println(getVal());
-    }
     public static String getVal(){
         try {
             int value = 0;
@@ -29,7 +26,9 @@ public class value_faktur {
             ResultSet rs = st.executeQuery("SELECT count(*) as value from buku_masuk` where tgl=date(now())");
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
-                System.out.println(rs.getString("value"));
+               Date date = new Date();
+               date = rs.getDate("tgl_masuk");
+               //Date tgl = rs.getString("tgl");
             }
             DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
             Date date = new Date();
