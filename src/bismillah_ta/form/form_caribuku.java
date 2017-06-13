@@ -132,7 +132,10 @@ public class form_caribuku extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        bismillah_ta.form.form_suratpemesanan yo = new bismillah_ta.form.form_suratpemesanan();
+//        bismillah_ta.form.form_suratpemesanan yo = new bismillah_ta.form.form_suratpemesanan();
+//        yo.setVisible(true);
+//        this.setVisible(false);
+        bismillah_ta.form.form_bukumasuk yo = new bismillah_ta.form.form_bukumasuk();
         yo.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -157,24 +160,28 @@ public class form_caribuku extends javax.swing.JFrame {
         {
             caribuku.kdBuku = jTable1.getValueAt(x, 0).toString();
             caribuku.namaBuku = jTable1.getValueAt(x, 1).toString();
-            caribuku.hargaBuku = jTable1.getValueAt(x, 2).toString();
+            caribuku.hargaBuku = jTable1.getValueAt(x, 3).toString();
         } 
     }//GEN-LAST:event_jTable1MouseClicked
 
     public final void tampildata() {
     DefaultTableModel tabelBarang = new DefaultTableModel();
     tabelBarang.addColumn("KODE BUKU");
-    tabelBarang.addColumn("NAMA BUKU");
-    tabelBarang.addColumn("HARGA");
+    tabelBarang.addColumn("JUDUL");
+    tabelBarang.addColumn("PENERBIT");
+    tabelBarang.addColumn("HRG_SATUAN");
+    
     try {
         Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku");
+               ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,hrg_distributor from buku "
+                    + "inner join harga on kd_buku=id_buku");
         while (rs.next()) {
             tabelBarang.addRow(new Object[]{
                 rs.getString(1),
                 rs.getString(2),
-                rs.getString(3)
+                rs.getString(3),
+                rs.getString(4)
             });
         }
         jTable1.setModel(tabelBarang);

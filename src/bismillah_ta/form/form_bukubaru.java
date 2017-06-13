@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 import koneksi.koneksi;
 import module.value_faktur;
 import bismillah_ta.form.form_bukumasuk;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import module.buku;
+import static module.buku.getBukuData;
 /**
  *
  * @author Tiara Ridha
@@ -41,16 +45,12 @@ public class form_bukubaru extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         penerbit = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        hrg_distributor = new javax.swing.JTextField();
+        hrg_dist = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         hrg_jual = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        stok = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -59,23 +59,27 @@ public class form_bukubaru extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Kode Barang");
+        jLabel1.setText("Kode Buku");
 
-        jLabel2.setText("Nama Barang");
+        kode_buku.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kode_bukuKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setText("Judul");
 
         jLabel3.setText("Penerbit");
 
         jLabel4.setText("Harga Distributor");
 
-        hrg_distributor.addActionListener(new java.awt.event.ActionListener() {
+        hrg_dist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hrg_distributorActionPerformed(evt);
+                hrg_distActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Harga Jual");
-
-        jLabel6.setText("Stok");
+        jLabel5.setText("Harga Satuanl");
 
         jButton1.setText("Simpan");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -85,155 +89,161 @@ public class form_bukubaru extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Buku Baru");
-
-        jLabel8.setText("jLabel8");
-
-        jLabel9.setText("jLabel9");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addComponent(jLabel8)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(hrg_distributor)
-                                    .addComponent(hrg_jual)
-                                    .addComponent(stok, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(penerbit)
-                                    .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel9)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(jLabel7)))
-                .addContainerGap(118, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(hrg_jual, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(penerbit, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nama_buku, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(hrg_dist, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(44, 44, 44))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(kode_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(hrg_jual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(hrg_dist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2))
+                .addContainerGap(157, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(hrg_distributor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hrg_jual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(58, 58, 58))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(108, 108, 108))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void hrg_distributorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrg_distributorActionPerformed
+    private void hrg_distActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrg_distActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_hrg_distributorActionPerformed
+    }//GEN-LAST:event_hrg_distActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        simpanData();
+        insertBuku();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        jLabel9.setText(value_faktur.getVal());
+//        jLabel9.setText(value_faktur.getVal());
     }//GEN-LAST:event_formWindowActivated
 
+    private void kode_bukuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kode_bukuKeyReleased
+        // TODO add your handling code here:
+//        if(buku.checkBuku(kode_buku.getText())== true){
+//            try {
+//             ResultSet a = getBukuData(kode_buku.getText());
+////                ResultSetMetaData x = a.getMetaData(); 
+//
+//         while(a.next()){
+////             set textfield ny disini
+//                        }
+//            } catch (Exception e) {
+//            }
+//        }
+    }//GEN-LAST:event_kode_bukuKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          bismillah_ta.form.form_bukumasuk yo = new bismillah_ta.form.form_bukumasuk();
+                    yo.setVisible(true); 
+                    this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
-    public void simpanData()
+    public void insertBuku()
     {
         try{
-                String value1 = kode_buku.getText();
-                String value2 = nama_buku.getText();
-                String value3 = penerbit.getText();
-                String valuea = hrg_distributor.getText();
-                int value4 = Integer.parseInt(valuea);
-                String valueb = hrg_jual.getText();
-                int value5 = Integer.parseInt(valueb);
-                String valuec = stok.getText();
-                int value6 = Integer.parseInt(valuec);
-                String value7 = jLabel9.getText();
+                String kode_bk= kode_buku.getText();
+                String judul = nama_buku.getText();
+                String penerbit_bk = penerbit.getText();
+                String valuea = hrg_jual.getText();
+                int hrg_satuan = Integer.parseInt(valuea);
+                String valueb = hrg_dist.getText();
+                int hrg_distributor = Integer.parseInt(valueb);
                 
                 if("".equals(kode_buku.getText()) || "".equals(nama_buku.getText()) ||
-                    "".equals(penerbit.getText()) || "".equals(hrg_distributor.getText()) || 
-                    "".equals(hrg_jual.getText()) || "".equals(stok.getText()))
+                    "".equals(penerbit.getText()) || "".equals(hrg_dist.getText()) || 
+                    "".equals(hrg_jual.getText()))
                 {
                     JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
                 }
                 else 
                 {
-                String sql = "insert into data_buku values(?,?,?,?,?,?,?)";
-                Connection con = koneksi.GetConnection();
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, value1);
-                pst.setString(2, value7);
-                pst.setString(3, value2);
-                pst.setString(4, value3);
-                pst.setInt(5, value4);
-                pst.setInt(6, value5);
-                pst.setInt(7, value6);
-                pst.execute();
-                
-
-                bismillah_ta.form.form_bukumasuk yo = new bismillah_ta.form.form_bukumasuk();
-                yo.setVisible(true); 
-                this.setVisible(false);
+                    buku.addBukuandHrg(kode_bk, judul, penerbit_bk, hrg_satuan, hrg_distributor);
+                    JOptionPane.showMessageDialog(this,"Data berhasil disimpan" );
+                    bismillah_ta.form.form_bukumasuk yo = new bismillah_ta.form.form_bukumasuk();
+                    yo.setVisible(true); 
+                    this.setVisible(false);
                 }
-                
+             kosong();   
         }
         catch (Exception e)
         {
              System.out.println(e.getLocalizedMessage().toString());
         }
-        
+    }
+     public void kosong()
+    {
+        kode_buku.setText("");
+        nama_buku.setText("");
+        penerbit.setText("");
+        hrg_jual.setText("");
+        hrg_dist.setText("");
     }
     /**
      * @param args the command line arguments
@@ -272,7 +282,7 @@ public class form_bukubaru extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField hrg_distributor;
+    private javax.swing.JTextField hrg_dist;
     private javax.swing.JTextField hrg_jual;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -281,13 +291,9 @@ public class form_bukubaru extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField kode_buku;
     private javax.swing.JTextField nama_buku;
     private javax.swing.JTextField penerbit;
-    private javax.swing.JTextField stok;
     // End of variables declaration//GEN-END:variables
 }

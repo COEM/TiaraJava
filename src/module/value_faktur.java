@@ -44,5 +44,30 @@ public class value_faktur {
         }
         return null;
     }
-    
+    public static String getNo(){
+        try {
+            int value = 0;
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT count(*) as value from surat_pemesanan where tgl=date(now())");
+            while(rs.next()){
+               value =Integer.parseInt(rs.getString("value"));
+            }
+            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+            Date date = new Date();
+            if (value<9) {
+                return "SP-"+dateFormat.format(date)+0+(value+1);
+            }
+            else{
+                return "SP-"+dateFormat.format(date)+(value+1);
+            }
+//                System.out.println(String.valueOf(id));
+//              if (rs)
+//              {
+//                  
+//              }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }

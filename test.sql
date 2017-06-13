@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2017 at 11:18 AM
+-- Generation Time: Jun 13, 2017 at 12:37 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `buku`
+--
+
+CREATE TABLE `buku` (
+  `kd_buku` varchar(35) NOT NULL,
+  `judul` varchar(50) NOT NULL,
+  `penerbit` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `buku`
+--
+
+INSERT INTO `buku` (`kd_buku`, `judul`, `penerbit`) VALUES
+('a001', 'dia', 'apala'),
+('a006', 'matematika', 'siap');
 
 -- --------------------------------------------------------
 
@@ -40,7 +60,13 @@ CREATE TABLE `buku_masuk` (
 
 INSERT INTO `buku_masuk` (`no_faktur`, `tgl_masuk`, `kd_suplier`, `no_po`, `lokasi`) VALUES
 ('S-19051701', '2017-05-19', 'as', 1, 2),
-('S-19051702', '2017-05-19', 'w1', 2, 3);
+('S-19051702', '2017-05-19', 'w1', 2, 3),
+('S-30051701', '2017-05-30', '12', 12, 1),
+('S-30051702', '2017-05-30', '12', 1, 1),
+('S-30051703', '2017-05-30', '1', 2, 1),
+('S-30051704', '2017-05-30', '13', 1, 1),
+('S-30051705', '2017-05-30', '12', 1, 1),
+('S-30051706', '2017-05-30', '12', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -63,19 +89,29 @@ CREATE TABLE `data_buku` (
 --
 
 INSERT INTO `data_buku` (`kode_buku`, `no_faktur`, `nama_buku`, `penerbit`, `hrg_distributor`, `hrg_satuan`, `stok`) VALUES
+('4h4h', 'S-15051701', 'sa', 'asde', 12, 13, 5),
 ('a0009', 'S-15051701', 'ada', 'sad', 1313, 12, 1),
-('a009', 'S-15051701', 'sa', 'asde', 12, 13, 1),
+('a009', 'S-15051701', 'sa', 'asde', 12, 12, 12),
 ('a12', 'S-15051701', 'ads', 'as', 134, 1234, 4),
 ('a123', 'S-15051701', 'sad', 'asd', 12, 12, 2),
 ('a123243', 'S-19051702', 'sf', 'df', 1, 1, 1),
 ('a1256', 'S-15051701', 'assd', 'asda', 123, 12, 1),
 ('a312', 'S-15051701', 'asda', 'asd', 12345, 12, 1),
 ('as123e', 'S-18051701', 'asd', 'ds', 123, 1, 1),
-('b0001', 'S-30051703', 'selimut', 'apes', 33, 3, 3),
+('b002', 'S-30051701', 'adasdsadad', 'rerewfdf', 123, 12, 2),
+('b005', 'S-12061701', 'b005', 'sdjdk', 21, 12, 5),
+('b123', 'S-30051702', 'dfdfdf', 'adsd', 44, 33, 2),
+('c121', 'S-30051703', 'adas', 'afegh', 45, 32, 3),
 ('d12', 'S-15051701', 'asd', 'asd', 12, 1, 1),
 ('d3', 'S-19051701', 'ad', 'asd', 1, 2, 1),
+('e23', 'S-30051705', 'asds', 'ffaaa', 234, 12, 1),
+('e32', 'S-30051706', 'adtr', 'dfdg', 3, 2, 1),
 ('f1234', 'S-15051701', 'asd', 'asd', 1244, 12, 1),
-('s123', 'S-18051701', 'asd', 'asd', 123, 12, 1);
+('f32', 'S-30051705', 'ad', 'dasd', 54, 2, 1),
+('ryftghjw', 'S-31051701', 'ryftghjw', 'tf', 4, 3, 5),
+('s123', 'S-18051701', 'asd', 'asd', 123, 12, 1),
+('s423', 'S-30051704', 'ads', 'dgfgf', 45, 3, 3),
+('v232', 'S-30051704', 'adsa', 'dfdf', 23, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -90,23 +126,42 @@ CREATE TABLE `data_masuk` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_meta`
+-- Table structure for table `detail_fbuku`
 --
 
-CREATE TABLE `data_meta` (
-  `id_meta` int(11) NOT NULL,
-  `jenis` varchar(20) NOT NULL,
-  `value` int(11) NOT NULL,
-  `tgl` date NOT NULL
+CREATE TABLE `detail_fbuku` (
+  `id_fbuku` int(11) NOT NULL,
+  `no_fbuku` varchar(50) NOT NULL,
+  `kode_buku` varchar(20) NOT NULL,
+  `jumlah` int(30) NOT NULL,
+  `hrg_satuan` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_meta`
+-- Dumping data for table `detail_fbuku`
 --
 
-INSERT INTO `data_meta` (`id_meta`, `jenis`, `value`, `tgl`) VALUES
-(1, 'faktur_buku', 0, '0000-00-00'),
-(2, 'faktur_jual', 0, '0000-00-00');
+INSERT INTO `detail_fbuku` (`id_fbuku`, `no_fbuku`, `kode_buku`, `jumlah`, `hrg_satuan`) VALUES
+(1, 'FB-12061701', 'a001', 2, 3000),
+(2, 'FB-12061701', 'a003', 5, 1000),
+(3, 'FB-12061701', 'a004', 3, 2000),
+(4, 'FB-12061701', 'a005', 1, 3000);
+
+--
+-- Triggers `detail_fbuku`
+--
+DELIMITER $$
+CREATE TRIGGER `trgTmbhStokUpdateHrg` AFTER INSERT ON `detail_fbuku` FOR EACH ROW BEGIN
+ INSERT INTO stok SET 
+ kd_buku=new.kode_buku,
+ jumlah=new.jumlah
+ ON DUPLICATE KEY UPDATE jumlah=jumlah+New.jumlah;
+ update harga SET 
+ hrg_satuan=new.hrg_satuan
+where id_buku=new.kode_buku;
+ END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -115,7 +170,7 @@ INSERT INTO `data_meta` (`id_meta`, `jenis`, `value`, `tgl`) VALUES
 --
 
 CREATE TABLE `detail_sp` (
-  `kd_sp` varchar(50) NOT NULL,
+  `kode_sp` varchar(50) NOT NULL,
   `kd_buku` varchar(50) NOT NULL,
   `jmlh` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -124,10 +179,91 @@ CREATE TABLE `detail_sp` (
 -- Dumping data for table `detail_sp`
 --
 
-INSERT INTO `detail_sp` (`kd_sp`, `kd_buku`, `jmlh`) VALUES
+INSERT INTO `detail_sp` (`kode_sp`, `kd_buku`, `jmlh`) VALUES
 ('SP-30051701', 'a0009', 2),
 ('', 'a009', 2),
 ('SP-30051701', 'a123', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faktur_buku`
+--
+
+CREATE TABLE `faktur_buku` (
+  `no_fbuku` varchar(50) NOT NULL,
+  `tgl` date NOT NULL,
+  `kd_suplier` int(10) NOT NULL,
+  `no_po` int(10) NOT NULL,
+  `lokasi` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faktur_buku`
+--
+
+INSERT INTO `faktur_buku` (`no_fbuku`, `tgl`, `kd_suplier`, `no_po`, `lokasi`) VALUES
+('FB-12061701', '2017-06-12', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `harga`
+--
+
+CREATE TABLE `harga` (
+  `id_buku` varchar(20) NOT NULL,
+  `hrg_satuan` int(11) NOT NULL,
+  `hrg_distributor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `harga`
+--
+
+INSERT INTO `harga` (`id_buku`, `hrg_satuan`, `hrg_distributor`) VALUES
+('a001', 2000, 1),
+('a002', 2, 2),
+('a003', 1, 1),
+('a004', 2000, 2),
+('a005', 3000, 1),
+('a006', 7000, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `harga_buku`
+--
+
+CREATE TABLE `harga_buku` (
+  `id_meta` int(11) NOT NULL,
+  `jenis` varchar(20) NOT NULL,
+  `value` int(11) NOT NULL,
+  `tgl` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `harga_buku`
+--
+
+INSERT INTO `harga_buku` (`id_meta`, `jenis`, `value`, `tgl`) VALUES
+(1, 'faktur_buku', 0, '0000-00-00'),
+(2, 'faktur_jual', 0, '0000-00-00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log_stok_buku`
+--
+
+CREATE TABLE `log_stok_buku` (
+  `log_id` int(50) NOT NULL,
+  `kd_buku` varchar(50) NOT NULL,
+  `stok_lama` int(25) NOT NULL,
+  `stok_baru` int(25) NOT NULL,
+  `tgl` date NOT NULL,
+  `keterangan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -202,6 +338,29 @@ INSERT INTO `sales` (`kd_sales`, `kd_manager`, `nama_sales`, `alamat_sales`, `no
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stok`
+--
+
+CREATE TABLE `stok` (
+  `kd_buku` varchar(20) NOT NULL,
+  `jumlah` int(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stok`
+--
+
+INSERT INTO `stok` (`kd_buku`, `jumlah`) VALUES
+('12', 2),
+('a001', 5),
+('a002', 12),
+('a003', 5),
+('a004', 3),
+('a005', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `surat_pemesanan`
 --
 
@@ -237,6 +396,12 @@ INSERT INTO `user` (`username`, `password`, `level`) VALUES
 --
 
 --
+-- Indexes for table `buku`
+--
+ALTER TABLE `buku`
+  ADD PRIMARY KEY (`kd_buku`);
+
+--
 -- Indexes for table `buku_masuk`
 --
 ALTER TABLE `buku_masuk`
@@ -249,10 +414,34 @@ ALTER TABLE `data_buku`
   ADD PRIMARY KEY (`kode_buku`);
 
 --
--- Indexes for table `data_meta`
+-- Indexes for table `detail_fbuku`
 --
-ALTER TABLE `data_meta`
+ALTER TABLE `detail_fbuku`
+  ADD PRIMARY KEY (`id_fbuku`);
+
+--
+-- Indexes for table `faktur_buku`
+--
+ALTER TABLE `faktur_buku`
+  ADD PRIMARY KEY (`no_fbuku`);
+
+--
+-- Indexes for table `harga`
+--
+ALTER TABLE `harga`
+  ADD PRIMARY KEY (`id_buku`);
+
+--
+-- Indexes for table `harga_buku`
+--
+ALTER TABLE `harga_buku`
   ADD PRIMARY KEY (`id_meta`);
+
+--
+-- Indexes for table `log_stok_buku`
+--
+ALTER TABLE `log_stok_buku`
+  ADD PRIMARY KEY (`log_id`);
 
 --
 -- Indexes for table `manager`
@@ -273,6 +462,12 @@ ALTER TABLE `sales`
   ADD PRIMARY KEY (`kd_sales`);
 
 --
+-- Indexes for table `stok`
+--
+ALTER TABLE `stok`
+  ADD PRIMARY KEY (`kd_buku`);
+
+--
 -- Indexes for table `surat_pemesanan`
 --
 ALTER TABLE `surat_pemesanan`
@@ -289,10 +484,20 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `data_meta`
+-- AUTO_INCREMENT for table `detail_fbuku`
 --
-ALTER TABLE `data_meta`
+ALTER TABLE `detail_fbuku`
+  MODIFY `id_fbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `harga_buku`
+--
+ALTER TABLE `harga_buku`
   MODIFY `id_meta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `log_stok_buku`
+--
+ALTER TABLE `log_stok_buku`
+  MODIFY `log_id` int(50) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
