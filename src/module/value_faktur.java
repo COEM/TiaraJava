@@ -23,17 +23,17 @@ public class value_faktur {
             int value = 0;
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT count(*) as value from buku_masuk where tgl_masuk=date(now())");
+            ResultSet rs = st.executeQuery("SELECT count(*) as value from faktur_buku where tgl=date(now())");
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
             }
             DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
             Date date = new Date();
             if (value<9) {
-                return "S-"+dateFormat.format(date)+0+(value+1);
+                return "FB-"+dateFormat.format(date)+0+(value+1);
             }
             else{
-                return "S-"+dateFormat.format(date)+(value+1);
+                return "FB-"+dateFormat.format(date)+(value+1);
             }
 //                System.out.println(String.valueOf(id));
 //              if (rs)

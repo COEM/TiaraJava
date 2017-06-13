@@ -560,43 +560,36 @@ public class form_bukumasuk extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("Select * from detail_fbuku where no_fbuku='"+jTextField1.getText()+"'");
+            ResultSet rs = st.executeQuery("Select kode_buku,judul,jumlah,hrg_satuan from detail_fbuku inner join buku on kode_buku=kd_buku where no_fbuku='"+jTextField1.getText()+"'");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
         }
     }
     
-    
     public void deleteTable(){
-        try {
-            Connection con = koneksi.GetConnection();
-            Statement st = con.createStatement();
-            st.executeUpdate("Delete from data_buku where no_faktur='"+jTextField1.getText()+"'");
-//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+         try {
+            
+            String no_fbuku = jTextField1.getText();
+            bukumasuk.deleteDetailBuku(no_fbuku);
             tampilDataBuku();
+            
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
         }
     }
     
     public void deleteItemTable(int x){
-//        int x = jTable1.getSelectedRow();
         if (x != -1)
         {
-            //yang mane form nye
              try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            st.executeUpdate("Delete from data_buku where no_faktur='"+jTextField1.getText()+"' and kode_buku='"+jTable1.getValueAt(x, 0)+"'");
-//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            st.executeUpdate("Delete from detail_fbuku where no_fbuku='"+jTextField1.getText()+"' and kode_buku='"+jTable1.getValueAt(x, 0)+"'");
             tampilDataBuku();
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
         }
-//             = jTable1.getValueAt(x, 0).toString();
-//            caripelanggan.namaPelanggan = jTable1.getValueAt(x, 1).toString();
-//            caripelanggan.alamatPelanggan = jTable1.getValueAt(x, 2).toString();
         } 
     }
     
@@ -652,11 +645,11 @@ public class form_bukumasuk extends javax.swing.JFrame {
                     "".equals(jTextField2.getText()) || "".equals(jTextField3.getText()) || 
                     "".equals(jTextField4.getText()))
                 {
-                    JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Harap Lengkapi Data");
                 }
                 else 
                 {
-                String sql = "insert into buku_masuk values(?,?,?,?,?)";
+                String sql = "insert into faktur_buku values(?,?,?,?,?)";
                 Connection con = koneksi.GetConnection();
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, value1);
@@ -674,6 +667,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
         catch (Exception e)
         {
              System.out.println(e.getLocalizedMessage().toString());
+             JOptionPane.showMessageDialog(rootPane, "Harap Lengkapi Data");
         }
         
     }

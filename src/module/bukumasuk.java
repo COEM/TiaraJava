@@ -7,6 +7,7 @@ package module;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import koneksi.koneksi;
@@ -45,17 +46,38 @@ public class bukumasuk {
         String value2 = kd_buku;
         int value3= jumlah;
         int value4=hrg_satuan;
-          Connection con = koneksi.GetConnection();
+
+        
+            Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            String sql = "insert into detail_fbuku values(?,?,?,?)";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, value1);
-                pst.setString(2, value2);
-                pst.setInt(3, value3);
-                pst.setInt(4, value4);
-                pst.execute();
+            try {
+                int nilai = 4;
+                ResultSet rs = st.executeQuery("SELECT count(*) as id_fbuku from detail_fbuku");
+                while(rs.next()){
+                    nilai =Integer.parseInt(rs.getString("id_fbuku"));
+                    nilai+=1;
+                String sql = "insert into detail_fbuku values(?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setInt(1, nilai);
+                    pst.setString(2, value1);
+                    pst.setString(3, value2);
+                    pst.setInt(4, value3);
+                    pst.setInt(5, value4);
+                    pst.execute();
+                    
+            }          
+        } catch (Exception e) {
+                System.out.println(e.getLocalizedMessage().toString());
+                }
+
     } 
     
+    public static void deleteDetailBuku(String no_fbuku)throws SQLException{
+        String value1 = no_fbuku;
+        Connection con = koneksi.GetConnection();
+        Statement st = con.createStatement();
+        st.executeUpdate("Delete from detail_fbuku where no_fbuku ='"+value1+"'");
+    }
 }
 
   
