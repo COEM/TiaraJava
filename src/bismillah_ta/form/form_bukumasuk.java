@@ -17,7 +17,7 @@ import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import module.value_faktur;
-import bismillah_ta.form.form_bukubaru;
+import bismillah_ta.form.form_caribuku;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import module.bukumasuk;
@@ -83,6 +83,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -97,7 +98,6 @@ public class form_bukumasuk extends javax.swing.JFrame {
         jLabel2.setText("Nomor Bukti");
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(204, 204, 204));
         jTextField1.setFocusable(false);
         jTextField1.setRequestFocusEnabled(false);
 
@@ -167,7 +167,6 @@ public class form_bukumasuk extends javax.swing.JFrame {
         });
 
         jTextField5.setEditable(false);
-        jTextField5.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton5.setText("Hapus Item");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -286,6 +285,8 @@ public class form_bukumasuk extends javax.swing.JFrame {
 
         jLabel11.setText("tes");
 
+        jLabel14.setText("jLabel14");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -299,13 +300,22 @@ public class form_bukumasuk extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(504, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(181, 181, 181)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(412, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jLabel11))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 21, Short.MAX_VALUE)
+                    .addComponent(jLabel14)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -321,9 +331,9 @@ public class form_bukumasuk extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jTextField5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -349,15 +359,15 @@ public class form_bukumasuk extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButton5)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22))))))
+                                .addGap(22, 22, 22))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)
+                                .addGap(33, 33, 33))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,7 +405,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -436,6 +446,9 @@ public class form_bukumasuk extends javax.swing.JFrame {
         jTextField3.setText(null);
         jTextField4.setText(null);
         jButton5.setVisible(false);
+        //jLabel14.setText(showStok());
+                        
+        //jLabel14.setText(showStok());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
@@ -479,9 +492,11 @@ public class form_bukumasuk extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        
                bismillah_ta.form.form_caribuku yo = new bismillah_ta.form.form_caribuku();
                     yo.setVisible(true); 
                     this.setVisible(false);
+               
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -495,26 +510,6 @@ public class form_bukumasuk extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    public void tgl(){
-        try {
-            int id = 5;
-            Connection con = koneksi.GetConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT count(*) as id from `data_meta` where tgl=date(now())");
-            while(rs.next()){
-               id =Integer.parseInt(rs.getString("id"));
-            }
-            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-            Date date = new Date();
-            if (id<9) {
-                jTextField1.setText("S-"+dateFormat.format(date)+0+(id+1));
-            }
-            else{
-                jTextField1.setText("S-"+dateFormat.format(date)+(id+1));
-            }
-        } catch (Exception e) {
-        }
-    }
     
     public static String tmpltgl(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -546,6 +541,8 @@ public class form_bukumasuk extends javax.swing.JFrame {
                 {
                     bukumasuk.addDetailBuku(no_fbuku,kode_bk, jumlah, hrg_satuan);
                     JOptionPane.showMessageDialog(this,"Data berhasil disimpan" );
+                     jLabel11.setText("Jumlah Stok '"+jTextField1.getText()+"'=");
+                    
 //                    bismillah_ta.form.form_bukumasuk yo = new bismillah_ta.form.form_bukumasuk();
 //                    yo.setVisible(true); 
 //                    this.setVisible(false);
@@ -555,6 +552,22 @@ public class form_bukumasuk extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+    
+//    public static String showStok(){
+//        
+//        try {
+//            
+//             Connection con = koneksi.GetConnection();
+//            Statement st = con.createStatement();       
+//            //ResultSet rs = st.executeQuery("Select stok from stok where kd_buku='"+jTextField1.getText()+"'");
+//        } catch (Exception e) {
+//        }
+////            if(x != -1){
+//
+////                 jLabel14.setText(showStok(x));
+//                   //}
+//              return null;      
+//    }
     
     public void tampilDataBuku(){
         try {
@@ -593,35 +606,6 @@ public class form_bukumasuk extends javax.swing.JFrame {
         } 
     }
     
-    
-    
-    public String getVal(){
-        try {
-            int id = 5;
-            Connection con = koneksi.GetConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT count(*) as id from `data_meta` where tgl=date(now())");
-            while(rs.next()){
-               id =Integer.parseInt(rs.getString("id"));
-            }
-            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-            Date date = new Date();
-            if (id<9) {
-                return "S-"+dateFormat.format(date)+0+(id+1);
-            }
-            else{
-                return "S-"+dateFormat.format(date)+(id+1);
-            }
-//                System.out.println(String.valueOf(id));
-//              if (rs)
-//              {
-//                  
-//              }
-        } catch (Exception e) {
-        }
-        return null;
-    }
-    
     public void kosong()
     {
         jTextField6.setText("");
@@ -635,7 +619,8 @@ public class form_bukumasuk extends javax.swing.JFrame {
         try{
                 String value1 = jTextField1.getText();
                 String value2 = jTextField5.getText();
-                String value3 = jTextField2.getText();
+                String a = jTextField2.getText();
+                int value3 = Integer.parseInt(a);
                 String valuea = jTextField3.getText();
                 int value4 = Integer.parseInt(valuea);
                 String valueb = jTextField4.getText();
@@ -649,16 +634,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
                 }
                 else 
                 {
-                String sql = "insert into faktur_buku values(?,?,?,?,?)";
-                Connection con = koneksi.GetConnection();
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, value1);
-                pst.setString(2, value2);
-                pst.setString(3, value3);
-                pst.setInt(4, value4);
-                pst.setInt(5, value5);
-                pst.execute();
-                
+                bukumasuk.saveDetailBuku(value1, value2, value3, value4, value5);
                 JOptionPane.showMessageDialog(this,"berhasil");
                 kosong();
                 }
@@ -673,7 +649,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
     }
     
     public void setSuplier(){
-        //lupak haha
+      
         bukumasuk.kdSuplier = jTextField2.getText();
         bukumasuk.noPO = jTextField3.getText();
         bukumasuk.lokasi = jTextField4.getText();
@@ -725,6 +701,7 @@ public class form_bukumasuk extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

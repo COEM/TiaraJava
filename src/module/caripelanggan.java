@@ -23,4 +23,6 @@ public class caripelanggan {
     public static String getAlmtPlgn() {
         return alamatPelanggan;
     }
+    
+    
 }

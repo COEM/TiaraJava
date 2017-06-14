@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2017 at 12:37 PM
+-- Generation Time: Jun 14, 2017 at 10:31 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -145,7 +145,11 @@ INSERT INTO `detail_fbuku` (`id_fbuku`, `no_fbuku`, `kode_buku`, `jumlah`, `hrg_
 (1, 'FB-12061701', 'a001', 2, 3000),
 (2, 'FB-12061701', 'a003', 5, 1000),
 (3, 'FB-12061701', 'a004', 3, 2000),
-(4, 'FB-12061701', 'a005', 1, 3000);
+(4, 'FB-12061701', 'a005', 1, 3000),
+(5, 'FB-13061701', 'a006', 3, 7000),
+(6, 'FB-13061701', 'a001', 3, 2000),
+(7, 'FB-13061702', 'a001', 3, 2000),
+(8, 'FB-13061703', 'a006', 2, 7000);
 
 --
 -- Triggers `detail_fbuku`
@@ -153,7 +157,7 @@ INSERT INTO `detail_fbuku` (`id_fbuku`, `no_fbuku`, `kode_buku`, `jumlah`, `hrg_
 DELIMITER $$
 CREATE TRIGGER `trgTmbhStokUpdateHrg` AFTER INSERT ON `detail_fbuku` FOR EACH ROW BEGIN
  INSERT INTO stok SET 
- kd_buku=new.kode_buku,
+ no_buku=new.kode_buku,
  jumlah=new.jumlah
  ON DUPLICATE KEY UPDATE jumlah=jumlah+New.jumlah;
  update harga SET 
@@ -170,8 +174,9 @@ DELIMITER ;
 --
 
 CREATE TABLE `detail_sp` (
+  `id_sp` int(11) NOT NULL,
   `kode_sp` varchar(50) NOT NULL,
-  `kd_buku` varchar(50) NOT NULL,
+  `kode_buku` varchar(50) NOT NULL,
   `jmlh` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -179,10 +184,13 @@ CREATE TABLE `detail_sp` (
 -- Dumping data for table `detail_sp`
 --
 
-INSERT INTO `detail_sp` (`kode_sp`, `kd_buku`, `jmlh`) VALUES
-('SP-30051701', 'a0009', 2),
-('', 'a009', 2),
-('SP-30051701', 'a123', 2);
+INSERT INTO `detail_sp` (`id_sp`, `kode_sp`, `kode_buku`, `jmlh`) VALUES
+(1, 'SP-14061701', 'a001', 2),
+(2, 'SP-14061701', 'a006', 2),
+(3, 'SP-14061702', 'a001', 2),
+(4, 'SP-14061703', 'a001', 2),
+(5, 'SP-14061704', 'a001', 4),
+(6, 'SP-14061705', 'a001', 3);
 
 -- --------------------------------------------------------
 
@@ -203,7 +211,10 @@ CREATE TABLE `faktur_buku` (
 --
 
 INSERT INTO `faktur_buku` (`no_fbuku`, `tgl`, `kd_suplier`, `no_po`, `lokasi`) VALUES
-('FB-12061701', '2017-06-12', 1, 1, 1);
+('FB-12061701', '2017-06-12', 1, 1, 1),
+('FB-13061701', '2017-06-13', 3, 3, 3),
+('FB-13061702', '2017-06-13', 2, 1, 1),
+('FB-13061703', '2017-06-13', 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -342,7 +353,7 @@ INSERT INTO `sales` (`kd_sales`, `kd_manager`, `nama_sales`, `alamat_sales`, `no
 --
 
 CREATE TABLE `stok` (
-  `kd_buku` varchar(20) NOT NULL,
+  `no_buku` varchar(20) NOT NULL,
   `jumlah` int(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -350,13 +361,14 @@ CREATE TABLE `stok` (
 -- Dumping data for table `stok`
 --
 
-INSERT INTO `stok` (`kd_buku`, `jumlah`) VALUES
+INSERT INTO `stok` (`no_buku`, `jumlah`) VALUES
 ('12', 2),
-('a001', 5),
+('a001', 13),
 ('a002', 12),
 ('a003', 5),
 ('a004', 3),
-('a005', 1);
+('a005', 1),
+('a006', 23);
 
 -- --------------------------------------------------------
 
@@ -370,6 +382,17 @@ CREATE TABLE `surat_pemesanan` (
   `kd_sales` varchar(10) NOT NULL,
   `tgl` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `surat_pemesanan`
+--
+
+INSERT INTO `surat_pemesanan` (`kd_sp`, `kd_pelanggan`, `kd_sales`, `tgl`) VALUES
+('SP-14061701', 'a01-00002', 'a01', '2017-06-14'),
+('SP-14061702', 'a01-00002', 'a01', '2017-06-14'),
+('SP-14061703', 'a01-00002', 'a01', '2017-06-14'),
+('SP-14061704', 'a01-00002', 'a01', '2017-06-14'),
+('SP-14061705', 'a01-00002', 'a01', '2017-06-14');
 
 -- --------------------------------------------------------
 
@@ -420,6 +443,12 @@ ALTER TABLE `detail_fbuku`
   ADD PRIMARY KEY (`id_fbuku`);
 
 --
+-- Indexes for table `detail_sp`
+--
+ALTER TABLE `detail_sp`
+  ADD PRIMARY KEY (`id_sp`);
+
+--
 -- Indexes for table `faktur_buku`
 --
 ALTER TABLE `faktur_buku`
@@ -465,7 +494,7 @@ ALTER TABLE `sales`
 -- Indexes for table `stok`
 --
 ALTER TABLE `stok`
-  ADD PRIMARY KEY (`kd_buku`);
+  ADD PRIMARY KEY (`no_buku`);
 
 --
 -- Indexes for table `surat_pemesanan`
@@ -487,7 +516,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `detail_fbuku`
 --
 ALTER TABLE `detail_fbuku`
-  MODIFY `id_fbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_fbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `harga_buku`
 --

@@ -69,7 +69,6 @@ public class bukumasuk {
         } catch (Exception e) {
                 System.out.println(e.getLocalizedMessage().toString());
                 }
-
     } 
     
     public static void deleteDetailBuku(String no_fbuku)throws SQLException{
@@ -77,6 +76,48 @@ public class bukumasuk {
         Connection con = koneksi.GetConnection();
         Statement st = con.createStatement();
         st.executeUpdate("Delete from detail_fbuku where no_fbuku ='"+value1+"'");
+    }
+    
+    public static void saveDetailBuku(String no_fbuku,String tgl, int kd_suplier, int no_po, int lokasi) throws SQLException{
+         String value1 = no_fbuku;
+        String value2 = tgl;
+        int value3= kd_suplier;
+        int value4=no_po;
+        int value5=lokasi;
+        Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            String sql = "insert into faktur_buku values(?,?,?,?,?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, value1);
+                pst.setString(2, value2);
+                pst.setInt(3, value3);
+                pst.setInt(4, value4);
+                pst.setInt(5, value5);
+                pst.execute();
+    }
+    
+    public static String getStok(){
+
+        try {
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("Select * from stok where kd_buku=kode_buku");
+            
+//            ResultSet rs = st.executeQuery("SELECT count(*) as value from faktur_buku where tgl=date(now())");
+//            while(rs.next()){
+//               value =Integer.parseInt(rs.getString("value"));
+//            }
+//            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+//            Date date = new Date();
+//            if (value<9) {
+//                return "FB-"+dateFormat.format(date)+0+(value+1);
+//            }
+//            else{
+//                return "FB-"+dateFormat.format(date)+(value+1);
+//            }
+        } catch (Exception e) {
+        }
+        return null;
     }
 }
 

@@ -373,8 +373,8 @@ public class form_dataBuku extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,hrg_distributor from buku "
-                    + "inner join harga on kd_buku=id_buku");
+            ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,hrg_distributor,jumlah from buku, harga, stok "
+                    + "where id_buku=kd_buku and no_buku=kd_buku");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
         }

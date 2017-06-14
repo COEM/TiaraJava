@@ -44,7 +44,7 @@ public class value_faktur {
         }
         return null;
     }
-    public static String getNo(){
+    public static String getNoSP(){
         try {
             int value = 0;
             Connection con = koneksi.GetConnection();
