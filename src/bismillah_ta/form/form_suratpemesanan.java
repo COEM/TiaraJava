@@ -79,7 +79,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         stok = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        sales = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -325,7 +325,6 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                         .addComponent(stok, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(149, 149, 149))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(26, 26, 26)
                         .addComponent(jButton6)
@@ -345,22 +344,22 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton6)))
+                        .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(49, 49, 49)))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton6))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextField1.setEditable(false);
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        sales.setEditable(false);
+        sales.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                salesKeyReleased(evt);
             }
         });
 
@@ -390,7 +389,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(no_sp)
                             .addComponent(tgl_penjualan, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                            .addComponent(jTextField1))))
+                            .addComponent(sales))))
                 .addContainerGap(18, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -411,17 +410,17 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(sales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -529,10 +528,10 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         setPlgnNull();
     }//GEN-LAST:event_alamat_pelangganKeyReleased
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void salesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_salesKeyReleased
         // TODO add your handling code here:
         setPlgnNull();
-    }//GEN-LAST:event_jTextField1KeyReleased
+    }//GEN-LAST:event_salesKeyReleased
 
     private void kode_bukuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kode_bukuKeyReleased
         // TODO add your handling code here:
@@ -551,13 +550,12 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                 dateFormat.format(date);
     }
      public void dataSales(){
-
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT kd_sales from pelanggan where kd_pelanggan='"+kd_pelanggan.getText()+"'");
+            ResultSet rs = st.executeQuery("SELECT no_sales from pelanggan where kd_pelanggan= '"+kd_pelanggan.getText()+"'");
             while (rs.next()) {                
-                jTextField1.setText(rs.getString("kd_sales"));
+                sales.setText(rs.getString("no_sales"));
             }                 
         } catch (SQLException e) {
         }
@@ -575,7 +573,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
          kd_pelanggan.setText("");
          alamat_pelanggan.setText("");
          nama_pelanggan.setText("");
-         jTextField1.setText("");
+         sales.setText("");
      }
     
     public void itemTerpilih(){
@@ -595,7 +593,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         sp.kd_pelanggan = kd_pelanggan.getText();
         sp.nama_plgn = nama_pelanggan.getText();
         sp.alamat_plgn = alamat_pelanggan.getText();
-        sp.kd_sales = jTextField1.getText();
+        sp.kd_sales = sales.getText();
     }
     
     public void setBukuNull(){
@@ -648,7 +646,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
          try {
                 String value1 = no_sp.getText();
                 String value2 = kd_pelanggan.getText();
-                String value3 = jTextField1.getText();
+                String value3 = sales.getText();
                 String value4 = tgl_penjualan.getText();
                 
                 sp.saveDetailBuku(value1, value2, value3, value4);
@@ -747,12 +745,12 @@ public class form_suratpemesanan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField kd_pelanggan;
     private javax.swing.JTextField kode_buku;
     private javax.swing.JTextField nama_buku;
     private javax.swing.JTextField nama_pelanggan;
     private javax.swing.JTextField no_sp;
+    private javax.swing.JTextField sales;
     private javax.swing.JTextField stok;
     private javax.swing.JTextField tgl_penjualan;
     // End of variables declaration//GEN-END:variables

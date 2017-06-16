@@ -329,7 +329,7 @@ public class form_pelanggan extends javax.swing.JFrame {
                Statement st = con.createStatement();
                ResultSet rs = st.executeQuery("Select *from pelanggan where kd_pelanggan like '%"+cari.getText()+"%'"
                        + "or nama_pelanggan like '%"+cari.getText()+"%'"
-                       + "or kd_sales like '%"+cari.getText()+"%'");
+                       + "or no_sales like '%"+cari.getText()+"%'");
                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
@@ -455,7 +455,7 @@ public class form_pelanggan extends javax.swing.JFrame {
                             
             String sql = "UPDATE pelanggan SET "
                 +"kd_pelanggan= '"+kd_pelanggan.getText()+"',"    
-                +"kd_sales= '"+kd_sales.getText()+"',"
+                +"no_sales= '"+kd_sales.getText()+"',"
                 +"nama_pelanggan= '"+nama_pelanggan.getText()+"',"
                 +"alamat_pelanggan= '"+alamat_pelanggan.getText()+"',"
                 +"no_telp_pelanggan= '"+no_telp.getText()+"',limits= '"+Integer.parseInt(limits.getText())+"' WHERE kd_pelanggan= '"+kd_pelanggan.getText()+"'";

@@ -361,7 +361,7 @@ public class form_sales extends javax.swing.JFrame {
         try {
                Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select *from sales where kd_sales like '%"+cari.getText()+"%'"
+               ResultSet rs = st.executeQuery("Select *from sales where no_sales like '%"+cari.getText()+"%'"
                        + "or nama_sales like '%"+cari.getText()+"%'"
                        + "or kd_manager like '%"+cari.getText()+"%'");
                jTable1.setModel(DbUtils.resultSetToTableModel(rs));

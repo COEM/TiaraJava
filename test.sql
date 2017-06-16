@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2017 at 10:31 AM
+-- Generation Time: Jun 16, 2017 at 09:09 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -67,6 +67,27 @@ INSERT INTO `buku_masuk` (`no_faktur`, `tgl_masuk`, `kd_suplier`, `no_po`, `loka
 ('S-30051704', '2017-05-30', '13', 1, 1),
 ('S-30051705', '2017-05-30', '12', 1, 1),
 ('S-30051706', '2017-05-30', '12', 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cek_pesanan`
+--
+
+CREATE TABLE `cek_pesanan` (
+  `kd_sp` varchar(20) NOT NULL,
+  `kd_plgn` varchar(20) NOT NULL,
+  `id_sales` varchar(10) NOT NULL,
+  `tgl` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cek_pesanan`
+--
+
+INSERT INTO `cek_pesanan` (`kd_sp`, `kd_plgn`, `id_sales`, `tgl`) VALUES
+('SP-14061707', 'a01-00002', 'a01', '2017-06-14'),
+('SP-16061701', 'a01-00002', 'a01', '2017-06-16');
 
 -- --------------------------------------------------------
 
@@ -170,6 +191,53 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `detail_fjual`
+--
+
+CREATE TABLE `detail_fjual` (
+  `id_fjual` int(50) NOT NULL,
+  `kd_fjual` varchar(25) NOT NULL,
+  `kode_bk` varchar(25) NOT NULL,
+  `jumlah` int(20) NOT NULL,
+  `discount` int(20) NOT NULL,
+  `subtotal` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detail_fjual`
+--
+
+INSERT INTO `detail_fjual` (`id_fjual`, `kd_fjual`, `kode_bk`, `jumlah`, `discount`, `subtotal`) VALUES
+(1, 'FJ-17061701', 'a001', 4, 20, 6400),
+(2, 'FJ-17061701', 'a001', 3, 20, 4800),
+(3, 'FJ-17061701', 'a006', 3, 10, 18900);
+
+--
+-- Triggers `detail_fjual`
+--
+DELIMITER $$
+CREATE TRIGGER `UpdateStokUpdateSubtotal` AFTER INSERT ON `detail_fjual` FOR EACH ROW BEGIN
+ INSERT INTO stok SET 
+ no_buku=new.kode_bk,
+ jumlah=new.jumlah
+ ON DUPLICATE KEY UPDATE jumlah=jumlah-New.jumlah;
+ INSERT INTO total_jual SET
+ kd_faktur=new.kd_fjual,
+ total=new.subtotal
+ ON DUPLICATE KEY UPDATE total=total+New.subtotal;
+ END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `deleteTotal` AFTER DELETE ON `detail_fjual` FOR EACH ROW BEGIN
+ DELETE from total_jual where kd_faktur=old.kd_fjual; 
+ END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `detail_sp`
 --
 
@@ -190,7 +258,13 @@ INSERT INTO `detail_sp` (`id_sp`, `kode_sp`, `kode_buku`, `jmlh`) VALUES
 (3, 'SP-14061702', 'a001', 2),
 (4, 'SP-14061703', 'a001', 2),
 (5, 'SP-14061704', 'a001', 4),
-(6, 'SP-14061705', 'a001', 3);
+(6, 'SP-14061705', 'a001', 3),
+(7, 'SP-14061706', 'a001', 2),
+(8, 'SP-14061707', 'a001', 2),
+(9, 'SP-16061701', 'a001', 3),
+(10, 'SP-16061702', 'a001', 4),
+(11, 'SP-16061702', 'a001', 3),
+(12, 'SP-16061702', 'a006', 3);
 
 -- --------------------------------------------------------
 
@@ -215,6 +289,28 @@ INSERT INTO `faktur_buku` (`no_fbuku`, `tgl`, `kd_suplier`, `no_po`, `lokasi`) V
 ('FB-13061701', '2017-06-13', 3, 3, 3),
 ('FB-13061702', '2017-06-13', 2, 1, 1),
 ('FB-13061703', '2017-06-13', 2, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faktur_jual`
+--
+
+CREATE TABLE `faktur_jual` (
+  `no_fjual` varchar(50) NOT NULL,
+  `no_sp` varchar(25) NOT NULL,
+  `kode_plgn` varchar(25) NOT NULL,
+  `kode_sales` varchar(20) NOT NULL,
+  `j_tgl` date NOT NULL,
+  `j_tempo` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faktur_jual`
+--
+
+INSERT INTO `faktur_jual` (`no_fjual`, `no_sp`, `kode_plgn`, `kode_sales`, `j_tgl`, `j_tempo`) VALUES
+('FJ-17061701', 'SP-16061702', 'a01-00002', 'a01', '2017-06-17', '2017-09-20');
 
 -- --------------------------------------------------------
 
@@ -306,7 +402,7 @@ INSERT INTO `manager` (`kd_manager`, `nama_manager`, `alamat_manager`, `no_telp_
 
 CREATE TABLE `pelanggan` (
   `kd_pelanggan` varchar(25) NOT NULL,
-  `kd_sales` varchar(20) NOT NULL,
+  `no_sales` varchar(20) NOT NULL,
   `nama_pelanggan` varchar(20) NOT NULL,
   `alamat_pelanggan` varchar(20) NOT NULL,
   `no_telp_pelanggan` varchar(20) NOT NULL,
@@ -317,7 +413,7 @@ CREATE TABLE `pelanggan` (
 -- Dumping data for table `pelanggan`
 --
 
-INSERT INTO `pelanggan` (`kd_pelanggan`, `kd_sales`, `nama_pelanggan`, `alamat_pelanggan`, `no_telp_pelanggan`, `limits`) VALUES
+INSERT INTO `pelanggan` (`kd_pelanggan`, `no_sales`, `nama_pelanggan`, `alamat_pelanggan`, `no_telp_pelanggan`, `limits`) VALUES
 ('a01-00002', 'a01', 'sd', 'ape', '1', 1),
 ('a01-00003', 'a01', 'sda', 'asdsa', '08912121', 100000),
 ('a03-00001', 'a03', 'asidasa', 'ntahlah', '0891212131', 1000000),
@@ -362,13 +458,12 @@ CREATE TABLE `stok` (
 --
 
 INSERT INTO `stok` (`no_buku`, `jumlah`) VALUES
-('12', 2),
-('a001', 13),
+('a001', 8),
 ('a002', 12),
 ('a003', 5),
 ('a004', 3),
 ('a005', 1),
-('a006', 23);
+('a006', 17);
 
 -- --------------------------------------------------------
 
@@ -392,7 +487,30 @@ INSERT INTO `surat_pemesanan` (`kd_sp`, `kd_pelanggan`, `kd_sales`, `tgl`) VALUE
 ('SP-14061702', 'a01-00002', 'a01', '2017-06-14'),
 ('SP-14061703', 'a01-00002', 'a01', '2017-06-14'),
 ('SP-14061704', 'a01-00002', 'a01', '2017-06-14'),
-('SP-14061705', 'a01-00002', 'a01', '2017-06-14');
+('SP-14061705', 'a01-00002', 'a01', '2017-06-14'),
+('SP-14061706', 'a01-00002', 'a01', '2017-06-14'),
+('SP-14061707', 'a01-00002', 'a01', '2017-06-14'),
+('SP-16061701', 'a01-00002', 'a01', '2017-06-16'),
+('SP-16061702', 'a01-00002', 'a01', '2017-06-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `total_jual`
+--
+
+CREATE TABLE `total_jual` (
+  `kd_faktur` varchar(25) NOT NULL,
+  `total` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `total_jual`
+--
+
+INSERT INTO `total_jual` (`kd_faktur`, `total`) VALUES
+('FJ-14061701', 20000),
+('FJ-17061701', 30100);
 
 -- --------------------------------------------------------
 
@@ -431,6 +549,12 @@ ALTER TABLE `buku_masuk`
   ADD PRIMARY KEY (`no_faktur`);
 
 --
+-- Indexes for table `cek_pesanan`
+--
+ALTER TABLE `cek_pesanan`
+  ADD PRIMARY KEY (`kd_sp`);
+
+--
 -- Indexes for table `data_buku`
 --
 ALTER TABLE `data_buku`
@@ -443,6 +567,12 @@ ALTER TABLE `detail_fbuku`
   ADD PRIMARY KEY (`id_fbuku`);
 
 --
+-- Indexes for table `detail_fjual`
+--
+ALTER TABLE `detail_fjual`
+  ADD PRIMARY KEY (`id_fjual`);
+
+--
 -- Indexes for table `detail_sp`
 --
 ALTER TABLE `detail_sp`
@@ -453,6 +583,12 @@ ALTER TABLE `detail_sp`
 --
 ALTER TABLE `faktur_buku`
   ADD PRIMARY KEY (`no_fbuku`);
+
+--
+-- Indexes for table `faktur_jual`
+--
+ALTER TABLE `faktur_jual`
+  ADD PRIMARY KEY (`no_fjual`);
 
 --
 -- Indexes for table `harga`
@@ -503,6 +639,12 @@ ALTER TABLE `surat_pemesanan`
   ADD PRIMARY KEY (`kd_sp`);
 
 --
+-- Indexes for table `total_jual`
+--
+ALTER TABLE `total_jual`
+  ADD PRIMARY KEY (`kd_faktur`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -517,6 +659,11 @@ ALTER TABLE `user`
 --
 ALTER TABLE `detail_fbuku`
   MODIFY `id_fbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `detail_fjual`
+--
+ALTER TABLE `detail_fjual`
+  MODIFY `id_fjual` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `harga_buku`
 --

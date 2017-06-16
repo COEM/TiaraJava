@@ -104,5 +104,15 @@ public class sp {
                 pst.setString(3, value3);
                 pst.setString(4, value4);
                 pst.execute();
+                
+                String sql2="insert into cek_pesanan values(?,?,?,?)";
+                PreparedStatement pst2 = con.prepareStatement(sql2);
+                pst2.setString(1, value1);
+                pst2.setString(2, value2);
+                pst2.setString(3, value3);
+                pst2.setString(4, value4);
+                pst2.execute();
     }
+    
+   
 }
