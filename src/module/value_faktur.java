@@ -88,4 +88,25 @@ public class value_faktur {
         return null;
     }
     
+    public static String getNoKwitansi(){
+        try {
+            int value = 0;
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT count(*) as value from pembayaran where tgl=date(now())");
+            while(rs.next()){
+               value =Integer.parseInt(rs.getString("value"));
+            }
+            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+            Date date = new Date();
+            if (value<9) {
+                return "KW-"+dateFormat.format(date)+0+(value+1);
+            }
+            else{
+                return "KW-"+dateFormat.format(date)+(value+1);
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }

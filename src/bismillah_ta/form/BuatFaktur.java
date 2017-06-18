@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
 import module.value_faktur;
-import module.TablePesan;
+import module.Akuntan;
 import module.DataFaktur;
 
 /**
@@ -69,6 +69,7 @@ public class BuatFaktur extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -237,20 +238,26 @@ public class BuatFaktur extends javax.swing.JFrame {
 
         jLabel9.setText("jLabel9");
 
+        jLabel18.setText("Sisa Stok Buku = ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(299, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel9))
                 .addContainerGap())
         );
 
@@ -270,6 +277,7 @@ public class BuatFaktur extends javax.swing.JFrame {
 
         jLabel14.setText("Subtotal");
 
+        jTextField10.setEditable(false);
         jTextField10.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField10KeyReleased(evt);
@@ -306,23 +314,22 @@ public class BuatFaktur extends javax.swing.JFrame {
                         .addComponent(jLabel17)
                         .addGap(53, 53, 53)
                         .addComponent(dis))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(39, 39, 39)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton4))
-                        .addComponent(jLabel11)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(32, 32, 32)
-                            .addComponent(jmlh, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel14)
-                            .addGap(52, 52, 52)
-                            .addComponent(jTextField10))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(39, 39, 39)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4))
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(32, 32, 32)
+                        .addComponent(jmlh, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(52, 52, 52)
+                        .addComponent(jTextField10)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -409,15 +416,16 @@ public class BuatFaktur extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
                                         .addComponent(jButton2)))
                                 .addGap(9, 9, 9))
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -517,20 +525,24 @@ public class BuatFaktur extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         addData();
+        jTextField6.setText(null);
+        jTextField7.setText(null);
+        jmlh.setText(null);
+        hrg.setText(null);
+        dis.setText(null);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         saveData();
-        bismillah_ta.form.HomeAkuntan yo = new bismillah_ta.form.HomeAkuntan();
-        yo.setVisible(true);
-        this.setVisible(false);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         deleteData();
         jTextField1.setText(null);
+        
         //tampilTotal();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -559,7 +571,7 @@ public class BuatFaktur extends javax.swing.JFrame {
     }
     
     public void itemPlgnSelected(){
-        jTextField4.setText(TablePesan.getKdPlgn());
+        jTextField4.setText(Akuntan.getKdPlgn());
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
@@ -603,13 +615,22 @@ public class BuatFaktur extends javax.swing.JFrame {
                 if("".equals(dis.getText()))
                 {
                     JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
+                    
+                    
                 }
                 else 
                 {
+                    
                     DataFaktur.addDetailBuku(value1, value2, value3, value5, d);
                     JOptionPane.showMessageDialog(this,"Data berhasil ditambahkan");
+                     jTextField6.setText(null);
+                        jTextField7.setText(null);
+                        jmlh.setText(null);
+                        hrg.setText(null);
+                    
                 }
                 tampilDataBuku();
+                getStok();
                 
         } catch (Exception e) {
         }
@@ -639,10 +660,23 @@ public class BuatFaktur extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+    public void getStok(){
+        String value1 = jTextField6.getText();
+        try {
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("Select jumlah from stok where no_buku ='"+value1+"'");
+            while (rs.next()) {                
+                jLabel9.setText(rs.getString("jumlah"));
+            } 
+        } catch (Exception e) {
+        }
+        
+    }
     
     public void saveData(){
          String value1 = no_faktur.getText();
-         String value2 = TablePesan.getNoSP();
+         String value2 = Akuntan.getNoSP();
          String value3 = jTextField4.getText();
          String value4 = jTextField3.getText();
          String value5 = jTextField2.getText();
@@ -655,7 +689,10 @@ public class BuatFaktur extends javax.swing.JFrame {
                 else 
                 {
                     DataFaktur.saveDetailBuku(value1, value2, value3, value4, value5, value6);
-                    JOptionPane.showMessageDialog(this,"Data berhasil ditambahkan");
+                    JOptionPane.showMessageDialog(this,"Data berhasil disimpan");
+                    bismillah_ta.form.HomeAkuntan yo = new bismillah_ta.form.HomeAkuntan();
+                    yo.setVisible(true);
+                    this.setVisible(false);
                 }
         } catch (Exception e) {
         }
@@ -667,6 +704,10 @@ public class BuatFaktur extends javax.swing.JFrame {
             DataFaktur.deleteDetailBuku(value1);
             tampilTotal();
              tampilDataBuku();
+             JOptionPane.showMessageDialog(this,"Data berhasil dihapus");
+                bismillah_ta.form.HomeAkuntan yo = new bismillah_ta.form.HomeAkuntan();
+                yo.setVisible(true);
+                this.setVisible(false);
         } catch (Exception e) {
         }
     }
@@ -721,6 +762,7 @@ public class BuatFaktur extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

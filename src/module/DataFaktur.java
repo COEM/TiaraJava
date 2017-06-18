@@ -91,4 +91,6 @@ public class DataFaktur {
         Statement st = con.createStatement();
         st.executeUpdate("Delete from detail_fjual where kd_fjual ='"+value1+"'");
     }
+    
+      
 }

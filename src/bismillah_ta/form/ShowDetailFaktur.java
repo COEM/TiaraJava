@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import koneksi.koneksi;
-import module.TablePesan;
+import module.Akuntan;
 import module.DataFaktur;
 import net.proteanit.sql.DbUtils;
 
@@ -145,7 +145,7 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        jLabel2.setText(TablePesan.getNoSP());
+        jLabel2.setText(Akuntan.getNoSP());
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -232,7 +232,7 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
     
     public void selectData(){
         //String a = jTextField1.getText();
-        String b = TablePesan.getNoSP();
+        String b = Akuntan.getNoSP();
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
