@@ -11,7 +11,7 @@ package module;
  */
 
 public class caribuku {
-    public static String kdBuku, namaBuku, hargaBuku;
+    public static String kdBuku, namaBuku, hargaBuku,jumlahStok;
  
     public static String getkdBuku() {
         return kdBuku;
@@ -24,7 +24,9 @@ public class caribuku {
     public static String getHargaBuku() {
         return hargaBuku;
     }
-    
+    public static String getStok() {
+        return jumlahStok;
+    }
     
 
 }

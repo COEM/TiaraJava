@@ -148,7 +148,7 @@ public class ShowDetailPiutang extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT kode_fjual,total,saldo,no_kwitansi,jumlah_bayar from piutang "
+            ResultSet rs = st.executeQuery("SELECT kode_fjual,total,no_kwitansi,jumlah_bayar,saldo from piutang "
                     + "inner join pembayaran on kode_plgn=no_plgn inner join total_jual on kode_fjual = kd_faktur "
                     + "where saldo>0 and kode_plgn='"+b+"'");
              jTable1.setModel(DbUtils.resultSetToTableModel(rs));

@@ -94,22 +94,23 @@ public class form_caribuku extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(34, 34, 34)
-                                .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(49, 49, 49)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(39, 39, 39)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(caribukuTxt)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
+                        .addGap(261, 261, 261)
                         .addComponent(jLabel2)))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(29, 29, 29))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,11 +121,11 @@ public class form_caribuku extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -145,8 +146,9 @@ public class form_caribuku extends javax.swing.JFrame {
         try {
                Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku where kode_buku like '%"+caribukuTxt.getText()+"%'"
-                       + "or nama_buku like '%"+caribukuTxt.getText()+"%'");
+               ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,jumlah from buku "
+                       + "inner join harga on kd_buku=id_buku inner join stok on kd_buku=no_buku where kd_buku like '%"+caribukuTxt.getText()+"%'"
+                       + "or judul like '%"+caribukuTxt.getText()+"%'");
                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
@@ -170,18 +172,20 @@ public class form_caribuku extends javax.swing.JFrame {
     tabelBarang.addColumn("JUDUL");
     tabelBarang.addColumn("PENERBIT");
     tabelBarang.addColumn("HRG_SATUAN");
+    tabelBarang.addColumn("STOK");
     
     try {
         Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,hrg_distributor from buku "
-                    + "inner join harga on kd_buku=id_buku");
+               ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,jumlah from buku "
+                    + "inner join harga on kd_buku=id_buku inner join stok on kd_buku=no_buku");
         while (rs.next()) {
             tabelBarang.addRow(new Object[]{
                 rs.getString(1),
                 rs.getString(2),
                 rs.getString(3),
-                rs.getString(4)
+                rs.getString(4),
+                rs.getInt(5)
             });
         }
         jTable1.setModel(tabelBarang);
@@ -201,7 +205,7 @@ public class form_caribuku extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

@@ -139,7 +139,7 @@ public class SearchBuku extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kd_buku,judul penerbit,hrg satuan from buku "
+               ResultSet rs = st.executeQuery("Select kd_buku,judul penerbit,hrg_satuan from buku "
                        + "inner join harga on id_buku=kd_buku where kd_buku like '%"+jTextField9.getText()+"%' or judul like'%"+jTextField9.getText()+"%'");
 //               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku where kode_buku like '%"+jTextField9.getText()+"%'"
 //                       + "or nama_buku like '%"+jTextField9.getText()+"%'");

@@ -27,10 +27,10 @@ public class value_faktur {
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
             }
-            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+            DateFormat dateFormat = new SimpleDateFormat("yy");
             Date date = new Date();
-            if (value<9) {
-                return "FB-"+dateFormat.format(date)+0+(value+1);
+            if (value<100) {
+                return "FB-"+dateFormat.format(date)+0+0+(value+1);
             }
             else{
                 return "FB-"+dateFormat.format(date)+(value+1);
@@ -53,10 +53,10 @@ public class value_faktur {
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
             }
-            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+            DateFormat dateFormat = new SimpleDateFormat("yy");
             Date date = new Date();
-            if (value<9) {
-                return "SP-"+dateFormat.format(date)+0+(value+1);
+            if (value<100) {
+                return "SP"+dateFormat.format(date)+"-"+0+0+(value+1);
             }
             else{
                 return "SP-"+dateFormat.format(date)+(value+1);
@@ -75,10 +75,10 @@ public class value_faktur {
             while(rs.next()){
                value =Integer.parseInt(rs.getString("value"));
             }
-            DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+            DateFormat dateFormat = new SimpleDateFormat("yy");
             Date date = new Date();
-            if (value<9) {
-                return "FJ-"+dateFormat.format(date)+0+(value+1);
+            if (value<100) {
+                return "FJ-"+dateFormat.format(date)+0+0+(value+1);
             }
             else{
                 return "FJ-"+dateFormat.format(date)+(value+1);

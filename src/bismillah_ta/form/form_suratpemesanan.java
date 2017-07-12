@@ -511,6 +511,10 @@ public class form_suratpemesanan extends javax.swing.JFrame {
         deleteData();
         empty();
         kosong();
+        JOptionPane.showMessageDialog(this,"Data Gagal Tersimpan" );
+        bismillah_ta.form.form_utama yo = new bismillah_ta.form.form_utama();
+        yo.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -622,6 +626,7 @@ public class form_suratpemesanan extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this,"Data berhasil ditambahkan");
                 }
                 tampilDataBuku();
+                 kosong();
                 sp.setBukuNull();
         }
         catch (Exception e)

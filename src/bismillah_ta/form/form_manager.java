@@ -348,6 +348,9 @@ public class form_manager extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
+        bismillah_ta.form.form_utama ni = new bismillah_ta.form.form_utama();
+        ni.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void select()

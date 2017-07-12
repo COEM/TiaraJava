@@ -95,7 +95,7 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
 
         jButton2.setText("Cancel");
 
-        jLabel4.setText("SP-16061702");
+        jLabel4.setText("SP-12071701");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,13 +231,13 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
     
     
     public void selectData(){
-        //String a = jTextField1.getText();
+        String a = jLabel4.getText();
         String b = Akuntan.getNoSP();
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("Select kode_buku,judul,jmlh,hrg_satuan from detail_sp inner join buku on kode_buku = kd_buku "
-                    + "inner join harga on kd_buku=id_buku where kode_sp='"+b+"'");
+                    + "inner join harga on kd_buku=id_buku where kode_sp='"+a+"'");
             table.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
