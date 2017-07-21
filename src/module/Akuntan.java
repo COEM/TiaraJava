@@ -11,13 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import koneksi.koneksi;
+import koneksi.koneksiGammu;
 
 /**
  *
  * @author Tiara Ridha
  */
 public class Akuntan {
-    public static String NoSP,kdPlgn,namaPlgn;
+    public static String NoSP,kdPlgn,namaPlgn,nomor,pesan;
  
     public static String getNoSP() {
         return NoSP;
@@ -29,6 +30,15 @@ public class Akuntan {
     
     public static String getNamaPlgn(){
         return namaPlgn;
+    }
+    
+    //buat sms gateway-------------------------------------------------------------------------------------------------------------
+    public static String getNomor(){
+        return nomor;
+    }
+    
+    public static String getPesan(){
+        return pesan;
     }
     
      public static void addPembayaran(String no_kwitansi,String no_jual, String no_plgn, String tgl, double saldo)throws SQLException{
@@ -57,4 +67,19 @@ public class Akuntan {
         Statement st = con.createStatement();
         st.executeUpdate("Delete from piutang where kode_fjual ='"+value1+"'");
      }
+     
+//SMS Gateway -----------------------------------------------------------------------------------------------------------------------
+     public static void sendOutbox(String DestinationNumber,String TextDecoded, String CreatorID)throws SQLException{
+        String value1=DestinationNumber;
+        String value2=TextDecoded;
+        String value3=CreatorID;
+        Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            String sql = "insert into outbox(DestinationNumber,TextDecoded,CreatorID) values(?,?,?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, value1);
+                pst.setString(2, value2);
+                pst.setString(3, value3);
+                pst.execute();
+    }
 }

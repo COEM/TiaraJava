@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class koneksi {
     private static Connection koneksi;
-    
+    public static String PathReport = System.getProperty("user.dir") + "/build/classes/laporan";
     public static Connection GetConnection()throws SQLException{
      try{
         koneksi= DriverManager.getConnection("jdbc:mysql://localhost/test","root","");

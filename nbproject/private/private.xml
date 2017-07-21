@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/College/TA/git/TiaraJava/src/module/value_faktur.java</file>
             <file>file:/D:/College/TA/git/TiaraJava/src/module/Akuntan.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/ShowDetailPiutang.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/form_suratpemesanan.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/module/DataFaktur.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/SearchBuku.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/module/buku.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/module/bukumasuk.java</file>
+            <file>file:/D:/College/TA/git/TiaraJava/src/laporan/laporan-persales.jrxml</file>
+            <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/laporan.java</file>
+            <file>file:/D:/College/TA/git/TiaraJava/src/laporan/lap-persales.jrxml</file>
+            <file>file:/D:/College/TA/git/TiaraJava/src/laporan/laporan_sales.jrxml</file>
             <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/HomeAkuntan.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/form_dataBuku.java</file>
-            <file>file:/D:/College/TA/git/TiaraJava/src/bismillah_ta/form/form_bukumasuk.java</file>
+            <file>file:/D:/College/TA/git/TiaraJava/src/koneksi/koneksi.java</file>
         </group>
     </open-files>
 </project-private>

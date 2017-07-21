@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import koneksi.koneksi;
 /**
  *
@@ -254,7 +256,12 @@ public class form_login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(form_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+try {
+			// Mengatur tampilan form
+         UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+			SwingUtilities.updateComponentTreeUI(new form_utama());	
+		}
+		catch(Exception e){}
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

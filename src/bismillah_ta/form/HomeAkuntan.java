@@ -236,15 +236,25 @@ public class HomeAkuntan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable5MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTable5);
 
         jButton6.setText("Send Message");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(56, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton6)
@@ -553,6 +563,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
         jTextField2.setText(tmpltgl());
         tampilHutang();
         tampilFaktur();
+        tampilJTempo();
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -601,6 +612,20 @@ public class HomeAkuntan extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jTextField4KeyReleased
+
+    private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
+        // TODO add your handling code here:
+        int x = jTable5.getSelectedRow();
+        if(x != -1){
+            Akuntan.nomor = jTable5.getValueAt(x, 5).toString();
+            Akuntan.namaPlgn = jTable5.getValueAt(x, 2).toString();
+        }
+    }//GEN-LAST:event_jTable5MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        SmsGateway();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     public static String tmpltgl(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -659,17 +684,6 @@ public class HomeAkuntan extends javax.swing.JFrame {
         }
     }
     
-    public void tampilPembayaran(){
-        //int saldo=0;
-        try {     
-            Connection con = koneksi.GetConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * from pembayaran ");
-             jTable4.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException sqlEx) {
-            System.out.println(sqlEx.getMessage());
-        }
-    }
     
     //Lihat Faktur------------------------------------------------------------------------------------------------------------------
      public void tampilFaktur(){
@@ -683,6 +697,45 @@ public class HomeAkuntan extends javax.swing.JFrame {
             System.out.println(sqlEx.getMessage());
         }
     }
+     
+     
+     //Jatuh Tempo-----------------------------------------------------------------------------------------------------------------
+     public void tampilJTempo(){
+        //int saldo=0;
+        try {     
+            Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT j_tempo,no_fjual,nama_pelanggan,saldo,nama_sales,no_telp_sales from faktur_jual "
+                    + "inner join pelanggan on kd_pelanggan=kode_plgn inner join sales on kd_sales=no_sales "
+                    + "inner join piutang on kode_fjual=no_fjual where saldo>0 and now()>j_tempo");
+             jTable5.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+        }
+    }
+     
+     //SMS Gateway-----------------------------------------------------------------------------------------------------------------
+     public void SmsGateway(){
+         //jLabel10.setText(Akuntan.namaPlgn);
+         String value1= Akuntan.nomor;
+         String value2= "Piutang atas Nama Pelanggan : "+Akuntan.namaPlgn+" sudah melewati jatuh tempo, harap dikonfirmasi";
+         String value3= "";
+         try {
+             if("".equals(Akuntan.nomor))
+                {
+                    JOptionPane.showMessageDialog(this, "Harap Ulangi", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+                else 
+                {
+                    Akuntan.sendOutbox(value1, value2,value3);
+                    JOptionPane.showMessageDialog(this,"Data berhasil dikirim");
+                }
+                    
+         } catch (SQLException sqlEx) {
+             System.out.println(sqlEx.getMessage());
+         }
+     }
+     
     /**
      * @param args the command line arguments
      */
