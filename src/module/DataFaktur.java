@@ -65,10 +65,10 @@ public class DataFaktur {
                 }
     }
     
-    public static void saveDetailBuku(String no_fjual, String no_sp, String kd_plgn, String kode_sales, String j_tgl, String j_tempo) throws SQLException{
+    public static void saveDetailBuku(String no_fjual, String no_sp, String kode_plgn, String kode_sales, String j_tgl, String j_tempo) throws SQLException{
         String value1 = no_fjual;
         String value2 = no_sp;
-        String value3 = kd_plgn;
+        String value3 = kode_plgn;
         String value4 = kode_sales;
         String value5 = j_tgl;
         String value6 = j_tempo;

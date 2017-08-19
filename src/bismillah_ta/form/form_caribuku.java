@@ -9,9 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import koneksi.koneksi;
-import net.proteanit.sql.DbUtils;
-import bismillah_ta.form.form_suratpemesanan;
 import module.caribuku;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +31,8 @@ public class form_caribuku extends javax.swing.JFrame {
     public form_caribuku() {
         initComponents();
         setLocationRelativeTo(null);
+        ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
         tampildata();
     }
 
@@ -50,6 +51,7 @@ public class form_caribuku extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,8 +81,10 @@ public class form_caribuku extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Form Cari Buku");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ok1.png"))); // NOI18N
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,13 +92,15 @@ public class form_caribuku extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search-flat1.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
@@ -103,26 +109,33 @@ public class form_caribuku extends javax.swing.JFrame {
                                 .addGap(49, 49, 49)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(39, 39, 39)
+                            .addContainerGap()
                             .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(caribukuTxt)))
+                            .addGap(18, 18, 18)
+                            .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caribukuTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(25, 25, 25))
@@ -149,10 +162,33 @@ public class form_caribuku extends javax.swing.JFrame {
                ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,jumlah from buku "
                        + "inner join harga on kd_buku=id_buku inner join stok on kd_buku=no_buku where kd_buku like '%"+caribukuTxt.getText()+"%'"
                        + "or judul like '%"+caribukuTxt.getText()+"%'");
-               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                 DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd Buku");
+                tabel_tes.addColumn("Judul");
+                tabel_tes.addColumn("Penerbit");
+                 tabel_tes.addColumn("Hrg Satuan");
+                  tabel_tes.addColumn("Jumlah");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_buku"),
+                  rs.getString("judul"),
+                  rs.getString("penerbit"),
+                  rs.getString("hrg_satuan"),
+                  rs.getString("jumlah"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
            }
+         finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(45);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(35);
+        }
     }//GEN-LAST:event_caribukuTxtKeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -167,31 +203,37 @@ public class form_caribuku extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     public final void tampildata() {
-    DefaultTableModel tabelBarang = new DefaultTableModel();
-    tabelBarang.addColumn("KODE BUKU");
-    tabelBarang.addColumn("JUDUL");
-    tabelBarang.addColumn("PENERBIT");
-    tabelBarang.addColumn("HRG_SATUAN");
-    tabelBarang.addColumn("STOK");
-    
     try {
         Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
                ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan,jumlah from buku "
                     + "inner join harga on kd_buku=id_buku inner join stok on kd_buku=no_buku");
-        while (rs.next()) {
-            tabelBarang.addRow(new Object[]{
-                rs.getString(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                rs.getInt(5)
-            });
-        }
-        jTable1.setModel(tabelBarang);
+       DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd Buku");
+                tabel_tes.addColumn("Judul");
+                tabel_tes.addColumn("Penerbit");
+                 tabel_tes.addColumn("Hrg Satuan");
+                  tabel_tes.addColumn("Jumlah");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_buku"),
+                  rs.getString("judul"),
+                  rs.getString("penerbit"),
+                  rs.getString("hrg_satuan"),
+                  rs.getString("jumlah"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Ada kesalahan" + e);
     }
+    finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(45);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(35);
+        }
 }
     
     /**
@@ -235,6 +277,7 @@ public class form_caribuku extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

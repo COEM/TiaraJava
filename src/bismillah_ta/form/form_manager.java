@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
@@ -32,6 +34,8 @@ public class form_manager extends javax.swing.JFrame {
         TableCellRenderer rendererFromHeader = jTable1.getTableHeader().getDefaultRenderer();
         JLabel headerLabel = (JLabel) rendererFromHeader;
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
+        ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
         select();
     }
 
@@ -44,11 +48,12 @@ public class form_manager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jScrollBar1 = new javax.swing.JScrollBar();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -67,19 +72,15 @@ public class form_manager extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         cari = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(693, 460));
+        setPreferredSize(new java.awt.Dimension(850, 480));
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancel.png"))); // NOI18N
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,26 +95,37 @@ public class form_manager extends javax.swing.JFrame {
 
         jLabel7.setText("CV. YRAMA WIDYA");
 
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/manager1.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 425, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(36, 36, 36))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)))
                 .addContainerGap())
         );
 
@@ -234,6 +246,9 @@ public class form_manager extends javax.swing.JFrame {
 
         jLabel9.setText("Search");
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/edit2.png"))); // NOI18N
         jButton3.setText("Update");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,12 +256,45 @@ public class form_manager extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/add2.png"))); // NOI18N
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png"))); // NOI18N
         jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,29 +303,20 @@ public class form_manager extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addGap(2, 2, 2)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9)
-                            .addGap(47, 47, 47)
-                            .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 36, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(cari))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,19 +325,17 @@ public class form_manager extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)
-                            .addComponent(jButton2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -327,12 +364,36 @@ public class form_manager extends javax.swing.JFrame {
         try {
                Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select *from manager where kd_manager like '%"+cari.getText()+"%'"
+               ResultSet rs = st.executeQuery("Select *from manager where id_manager like '%"+cari.getText()+"%'"
                        + "or nama_manager like '%"+cari.getText()+"%'");
-               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Id Manager");
+                tabel_tes.addColumn("Nama");
+                tabel_tes.addColumn("Alamat");
+                tabel_tes.addColumn("No. Telp");
+                tabel_tes.addColumn("Wilayah");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("id_manager"),
+                  rs.getString("nama_manager"),
+                  rs.getString("alamat_manager"),
+                  rs.getString("no_telp_manager"),
+                  rs.getString("wilayah_manager"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
-           }  
+           } 
+        finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(95);
+        }
     }//GEN-LAST:event_cariKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -358,11 +419,35 @@ public class form_manager extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("Select kd_manager,nama_manager,"
+            ResultSet rs = st.executeQuery("Select id_manager,nama_manager,"
                     + "alamat_manager,no_telp_manager,wilayah_manager from manager");
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Id Manager");
+                tabel_tes.addColumn("Nama");
+                tabel_tes.addColumn("Alamat");
+                tabel_tes.addColumn("No. Telp");
+                tabel_tes.addColumn("Wilayah");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("id_manager"),
+                  rs.getString("nama_manager"),
+                  rs.getString("alamat_manager"),
+                  rs.getString("no_telp_manager"),
+                  rs.getString("wilayah_manager"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+        finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(95);
         }
     }
     public void kosong()
@@ -391,7 +476,7 @@ public class form_manager extends javax.swing.JFrame {
                 }
                 else 
                 {
-                    String sql = "insert into manager (kd_manager,nama_manager,alamat_manager,no_telp_manager,wilayah_manager) "
+                    String sql = "insert into manager (id_manager,nama_manager,alamat_manager,no_telp_manager,wilayah_manager) "
                         + "values(?,?,?,?,?)";
                 Connection con = koneksi.GetConnection();
                 PreparedStatement pst = con.prepareStatement(sql);
@@ -420,7 +505,7 @@ public class form_manager extends javax.swing.JFrame {
              if (x !=-1)
              {
                  String kdManager = jTable1.getValueAt(x, 0).toString();
-                 String sql = "delete from manager where kd_manager ='"+kdManager+"'";
+                 String sql = "delete from manager where id_manager ='"+kdManager+"'";
                  Connection con = koneksi.GetConnection();
                  PreparedStatement pst = con.prepareStatement(sql);
                  pst.execute();
@@ -443,12 +528,12 @@ public class form_manager extends javax.swing.JFrame {
         try{
                             
             String sql = "UPDATE manager SET "
-                +"kd_manager= '"+kd_manager.getText()+"',"    
+                +"id_manager= '"+kd_manager.getText()+"',"    
                 +"nama_manager= '"+nama_manager.getText()+"',"
                 +"alamat_manager= '"+alamat.getText()+"',"
                 +"no_telp_manager= '"+telp.getText()+"',"
                 +"wilayah_manager= '"+wilayah.getText()+"'"
-                +"WHERE kd_manager= '"+kd_manager.getText()+"'";
+                +"WHERE id_manager= '"+kd_manager.getText()+"'";
         
                 Connection con = koneksi.GetConnection();
                 PreparedStatement pst = con.prepareStatement(sql);
@@ -506,6 +591,7 @@ public class form_manager extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -516,6 +602,8 @@ public class form_manager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

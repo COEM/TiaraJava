@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +31,8 @@ public class form_pelanggan extends javax.swing.JFrame {
         initComponents();
        // dataKDSales();
         setLocationRelativeTo(null);
+        ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
         jTable1.setDefaultEditor(Object.class, null);
         TableCellRenderer rendererFromHeader = jTable1.getTableHeader().getDefaultRenderer();
         JLabel headerLabel = (JLabel) rendererFromHeader;
@@ -82,6 +85,7 @@ public class form_pelanggan extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(735, 620));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/add2.png"))); // NOI18N
@@ -284,15 +288,14 @@ public class form_pelanggan extends javax.swing.JFrame {
                 .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane2))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -302,13 +305,14 @@ public class form_pelanggan extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -361,10 +365,37 @@ public class form_pelanggan extends javax.swing.JFrame {
                ResultSet rs = st.executeQuery("Select *from pelanggan where kd_pelanggan like '%"+cari.getText()+"%'"
                        + "or nama_pelanggan like '%"+cari.getText()+"%'"
                        + "or no_sales like '%"+cari.getText()+"%'");
-               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd pelanggan");
+                tabel_tes.addColumn("Kd Sales");
+                tabel_tes.addColumn("Nama Pelanggan");
+                tabel_tes.addColumn("Alamat");
+                tabel_tes.addColumn("No. Telp");
+                tabel_tes.addColumn("Limits");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_pelanggan"),
+                  rs.getString("no_sales"),
+                  rs.getString("nama_pelanggan"),
+                  rs.getString("alamat_pelanggan"),
+                  rs.getString("no_telp_pelanggan"),
+                  rs.getString("limits"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
-           }  
+           }
+        finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(85);
+        }
     }//GEN-LAST:event_cariKeyReleased
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -456,9 +487,36 @@ public class form_pelanggan extends javax.swing.JFrame {
 //            ResultSet rs = st.executeQuery("Select kd_pelanggan,kd_sales,nama_pelanggan,"
 //                    + "alamat_pelanggan,no_telp_pelanggan, limit from pelanggan");
             ResultSet rs = st.executeQuery("Select * from pelanggan");
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs)); 
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd pelanggan");
+                tabel_tes.addColumn("Kd Sales");
+                tabel_tes.addColumn("Nama Pelanggan");
+                tabel_tes.addColumn("Alamat");
+                tabel_tes.addColumn("No. Telp");
+                tabel_tes.addColumn("Limits");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_pelanggan"),
+                  rs.getString("no_sales"),
+                  rs.getString("nama_pelanggan"),
+                  rs.getString("alamat_pelanggan"),
+                  rs.getString("no_telp_pelanggan"),
+                  rs.getString("limits"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+         finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(85);
         }
     }
     

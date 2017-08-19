@@ -7,18 +7,16 @@ package module;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import koneksi.koneksi;
-import koneksi.koneksiGammu;
 
 /**
  *
  * @author Tiara Ridha
  */
 public class Akuntan {
-    public static String NoSP,kdPlgn,namaPlgn,nomor,pesan;
+    public static String NoSP,kdPlgn,namaPlgn,nomor,pesan,noFaktur;
  
     public static String getNoSP() {
         return NoSP;
@@ -30,6 +28,10 @@ public class Akuntan {
     
     public static String getNamaPlgn(){
         return namaPlgn;
+    }
+    
+    public static String getFaktur(){
+        return noFaktur;
     }
     
     //buat sms gateway-------------------------------------------------------------------------------------------------------------
@@ -81,5 +83,43 @@ public class Akuntan {
                 pst.setString(2, value2);
                 pst.setString(3, value3);
                 pst.execute();
+    }
+     
+ //User-------------------------------------------------------------------------------------------------------------------------------
+     public static void addUser(String username, String password, String level)throws SQLException{
+        String value1=username;
+        String value2=password;
+        String value3=level;
+        Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            String sql = "insert into user(username,password,level) values(?,?,?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, value1);
+                pst.setString(2, value2);
+                pst.setString(3, value3);
+                pst.execute();
+    }
+     
+     public static void editUser(String username, String password, String level)throws SQLException{
+        String value1=username;
+        String value2=password;
+        String value3=level;
+        
+        Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            String sql = "Update user set username=?,password=?,level=? where username=?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, value1);
+                pst.setString(2, value2);
+                pst.setString(3, value3);
+                pst.setString(4, value1);
+                pst.executeUpdate();
+    }
+     
+     public static void deleteUser(String username)throws SQLException{
+        String value1=username;
+        Connection con = koneksi.GetConnection();
+            Statement st = con.createStatement();
+            st.executeUpdate("Delete from user where username ='"+value1+"'");
     }
 }

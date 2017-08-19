@@ -39,7 +39,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="483" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -100,11 +100,11 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="4">
-                <Column editable="true" title="KD Sales" type="java.lang.Object"/>
-                <Column editable="true" title="KD Manager" type="java.lang.Object"/>
-                <Column editable="true" title="Nama" type="java.lang.Object"/>
-                <Column editable="true" title="Alamat" type="java.lang.Object"/>
-                <Column editable="true" title="No Telp" type="java.lang.Object"/>
+                <Column editable="false" title="KD Sales" type="java.lang.Object"/>
+                <Column editable="false" title="KD Manager" type="java.lang.Object"/>
+                <Column editable="false" title="Nama" type="java.lang.Object"/>
+                <Column editable="false" title="Alamat" type="java.lang.Object"/>
+                <Column editable="false" title="No Telp" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
@@ -370,7 +370,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="106" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -383,7 +383,7 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
@@ -415,7 +415,7 @@
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/user2.png"/>
+              <Image iconType="3" name="/image/sales1.png"/>
             </Property>
           </Properties>
         </Component>

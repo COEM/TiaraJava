@@ -41,9 +41,9 @@ public class bukumasuk {
     
    //Fungsi Buat Form buku masuk------------------------------------------------------------------------------------------
     
-    public static void addDetailBuku(String no_fbuku,String kd_buku, int jumlah, int hrg_satuan) throws SQLException{
+    public static void addDetailBuku(String no_fbuku,String kode_buku, int jumlah, int hrg_satuan) throws SQLException{
         String value1 = no_fbuku;
-        String value2 = kd_buku;
+        String value2 = kode_buku;
         int value3= jumlah;
         int value4=hrg_satuan;
 

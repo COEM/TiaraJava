@@ -45,6 +45,7 @@ public class SearchBuku extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +67,7 @@ public class SearchBuku extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Form Cari Buku");
 
         jLabel2.setText("Search");
@@ -76,6 +78,7 @@ public class SearchBuku extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ok1.png"))); // NOI18N
         jButton4.setText("OK");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,17 +86,21 @@ public class SearchBuku extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search-flat1.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(193, 193, 193)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(103, 103, 103))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton4)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,15 +108,21 @@ public class SearchBuku extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,7 +130,7 @@ public class SearchBuku extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -139,13 +152,32 @@ public class SearchBuku extends javax.swing.JFrame {
         try {
             Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select kd_buku,judul penerbit,hrg_satuan from buku "
+               ResultSet rs = st.executeQuery("Select kd_buku,judul ,penerbit,hrg_satuan from buku "
                        + "inner join harga on id_buku=kd_buku where kd_buku like '%"+jTextField9.getText()+"%' or judul like'%"+jTextField9.getText()+"%'");
-//               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,hrg_satuan from data_buku where kode_buku like '%"+jTextField9.getText()+"%'"
-//                       + "or nama_buku like '%"+jTextField9.getText()+"%'");
-               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd Buku");
+                tabel_tes.addColumn("Judul");
+                tabel_tes.addColumn("Penerbit");
+                tabel_tes.addColumn("Hrg Satuan");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_buku"),
+                  rs.getString("judul"),
+                  rs.getString("penerbit"),
+                  rs.getString("hrg_satuan"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+        finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(35);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(220);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
     }//GEN-LAST:event_jTextField9KeyReleased
 
@@ -160,29 +192,34 @@ public class SearchBuku extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public final void tampildata() {
-    DefaultTableModel tabelBarang = new DefaultTableModel();
-    tabelBarang.addColumn("KODE BUKU");
-    tabelBarang.addColumn("NAMA BUKU");
-    tabelBarang.addColumn("PNERBIT");
-    tabelBarang.addColumn("HRG_Satuan");
-
     try {
         Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
                ResultSet rs = st.executeQuery("Select kd_buku,judul,penerbit,hrg_satuan from buku inner join harga on kd_buku=id_buku");
 //               ResultSet rs = st.executeQuery("Select kode_buku,nama_buku,penerbit,hrg_distributor,hrg_satuan,stok from data_buku");
-        while (rs.next()) {
-            tabelBarang.addRow(new Object[]{
-                rs.getString(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4)
-            });
-        }
-        jTable1.setModel(tabelBarang);
+               DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd Buku");
+                tabel_tes.addColumn("Judul");
+                tabel_tes.addColumn("Penerbit");
+                tabel_tes.addColumn("Hrg Satuan");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_buku"),
+                  rs.getString("judul"),
+                  rs.getString("penerbit"),
+                  rs.getString("hrg_satuan"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Ada kesalahan" + e);
     }
+      finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
+        }
 }
     
     
@@ -226,6 +263,7 @@ public class SearchBuku extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField9;

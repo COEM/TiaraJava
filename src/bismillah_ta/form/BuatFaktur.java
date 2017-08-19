@@ -12,7 +12,9 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
 import module.value_faktur;
@@ -31,6 +33,8 @@ public class BuatFaktur extends javax.swing.JFrame {
     public BuatFaktur() {
         initComponents();
         setLocationRelativeTo(null);
+         ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
         tampilDataBuku();
     }
 
@@ -46,6 +50,8 @@ public class BuatFaktur extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         no_faktur = new javax.swing.JTextField();
@@ -79,15 +85,12 @@ public class BuatFaktur extends javax.swing.JFrame {
         jmlh = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         hrg = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         dis = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
@@ -104,21 +107,37 @@ public class BuatFaktur extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel5.setText("FAKTUR PENJUALAN");
 
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/faktur.png"))); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setText("CV. YRAMA WIDYA");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel19))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addComponent(jLabel5))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -217,9 +236,10 @@ public class BuatFaktur extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save1.png"))); // NOI18N
         jButton1.setText("SAVE");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +247,7 @@ public class BuatFaktur extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancel.png"))); // NOI18N
         jButton2.setText("CANCEL");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,15 +296,6 @@ public class BuatFaktur extends javax.swing.JFrame {
 
         jLabel13.setText("Harga Satuan ");
 
-        jLabel14.setText("Subtotal");
-
-        jTextField10.setEditable(false);
-        jTextField10.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField10KeyReleased(evt);
-            }
-        });
-
         jButton4.setText("Show Data");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,21 +327,20 @@ public class BuatFaktur extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addComponent(dis))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(39, 39, 39)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4))
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(32, 32, 32)
-                        .addComponent(jmlh, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(52, 52, 52)
-                        .addComponent(jTextField10)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(39, 39, 39)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4))
+                            .addComponent(jLabel11)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(32, 32, 32)
+                                .addComponent(jmlh, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -356,13 +367,10 @@ public class BuatFaktur extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(dis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/add2.png"))); // NOI18N
         jButton3.setText("Add");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,13 +380,7 @@ public class BuatFaktur extends javax.swing.JFrame {
 
         jLabel15.setText("Jumlah Total :");
 
-        jButton5.setText("jButton5");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/print.png"))); // NOI18N
         jButton6.setText("Print");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -408,30 +410,23 @@ public class BuatFaktur extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2)))
-                                .addGap(9, 9, 9))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -455,27 +450,25 @@ public class BuatFaktur extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addComponent(jButton5))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)
-                            .addComponent(jButton6))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton2)
+                                .addComponent(jButton1))
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -489,31 +482,14 @@ public class BuatFaktur extends javax.swing.JFrame {
         itemDataSelected();
         tampilTotal();
         tampilDataBuku();
+//         jLabel9.setText(jTextField6.getText());
+//        getStok();
     }//GEN-LAST:event_formWindowActivated
 
     private void disKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_disKeyReleased
         // TODO add your handling code here:
         
     }//GEN-LAST:event_disKeyReleased
-
-    private void jTextField10KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10KeyReleased
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        String a = jmlh.getText();
-        int jmlh= Integer.parseInt(a);
-        String b = hrg.getText();
-        int hrg = Integer.parseInt(b);
-        String e= dis.getText();
-        int dis = Integer.parseInt(e);
-        float diskount = (float) dis / 100;
-        float d= (hrg-(hrg*diskount))*jmlh;
-        //float d = (jmlh*hrg)-((jmlh*hrg)*diskount);
-        String result = String.valueOf(d);
-        jTextField10.setText(result);
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -564,7 +540,23 @@ public class BuatFaktur extends javax.swing.JFrame {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("Select kd_sp,kd_plgn,nama_pelanggan,kd_sales,nama_sales,tgl from cek_pesanan "
                     + "inner join pelanggan on kd_plgn = kd_pelanggan inner join sales on no_sales=kd_sales");
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+             DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd SP");
+                tabel_tes.addColumn("Kd Pelanggan");
+                tabel_tes.addColumn("Nama Pelanggan");
+                tabel_tes.addColumn("Kd Sales");
+                tabel_tes.addColumn("Nama Sales");
+                tabel_tes.addColumn("Tanggal");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kode_buku"),
+                  rs.getString("judul"),
+                  rs.getString("jmlh"),
+                  rs.getString("hrg_satuan"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
         }
@@ -622,6 +614,7 @@ public class BuatFaktur extends javax.swing.JFrame {
                 {
                     
                     DataFaktur.addDetailBuku(value1, value2, value3, value5, d);
+                    getStok();
                     JOptionPane.showMessageDialog(this,"Data berhasil ditambahkan");
                      jTextField6.setText(null);
                         jTextField7.setText(null);
@@ -630,7 +623,7 @@ public class BuatFaktur extends javax.swing.JFrame {
                     
                 }
                 tampilDataBuku();
-                getStok();
+                
                 
         } catch (Exception e) {
         }
@@ -642,8 +635,31 @@ public class BuatFaktur extends javax.swing.JFrame {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT jumlah,judul,hrg_satuan,discount,subtotal from detail_fjual inner join buku on kd_buku=kode_bk inner join harga on kd_buku=id_buku where kd_fjual='"+no_faktur.getText()+"'");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//            DefaultTableModel tabel_tes = new DefaultTableModel();
+//                tabel_tes.addColumn("Jumlah");
+//                tabel_tes.addColumn("Judul");
+//                tabel_tes.addColumn("Hrg Satuan");
+//                tabel_tes.addColumn("Discount");
+//                tabel_tes.addColumn("Subtotal");
+//            while (rs.next()) {            
+//              tabel_tes.addRow(new Object[]{
+//                  rs.getString("jumlah"),
+//                  rs.getString("judul"),
+//                  rs.getString("hrg_satuan"),
+//                  rs.getString("discount"),
+//                  rs.getString("subtotal"),
+//              });
+//              jTable1.setModel(tabel_tes);
+//            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+        finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(80);
         }
     }
     
@@ -662,6 +678,7 @@ public class BuatFaktur extends javax.swing.JFrame {
     }
     public void getStok(){
         String value1 = jTextField6.getText();
+//        String value1= "S004";
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
@@ -670,6 +687,7 @@ public class BuatFaktur extends javax.swing.JFrame {
                 jLabel9.setText(rs.getString("jumlah"));
             } 
         } catch (Exception e) {
+             System.out.println(e.getMessage());
         }
         
     }
@@ -694,7 +712,8 @@ public class BuatFaktur extends javax.swing.JFrame {
                     yo.setVisible(true);
                     this.setVisible(false);
                 }
-        } catch (Exception e) {
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
         }
     }
     
@@ -751,7 +770,6 @@ public class BuatFaktur extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -763,6 +781,7 @@ public class BuatFaktur extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -781,7 +800,6 @@ public class BuatFaktur extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

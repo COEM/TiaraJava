@@ -5,9 +5,10 @@
  */
 package bismillah_ta.form;
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import module.user;
 
 /**
  *
@@ -21,6 +22,8 @@ public class form_utama extends javax.swing.JFrame {
     public form_utama() {
         initComponents();
         setLocationRelativeTo(null);
+        ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
     }
 
     /**
@@ -49,6 +52,11 @@ public class form_utama extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(48, 37, 69));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/3.jpg"))); // NOI18N
 
@@ -101,6 +109,11 @@ public class form_utama extends javax.swing.JFrame {
         );
 
         jButton10.setText("Laporan");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Home Akuntan");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -238,6 +251,20 @@ public class form_utama extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        bismillah_ta.form.laporan a = new bismillah_ta.form.laporan();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if(user.getType().equals("gudang")){
+            jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -281,17 +308,17 @@ public class form_utama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton10;
+    public javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton3;
+    public javax.swing.JButton jButton4;
+    public javax.swing.JButton jButton5;
+    public javax.swing.JButton jButton6;
+    public javax.swing.JButton jButton7;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,13 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import koneksi.koneksi;
-import net.proteanit.sql.DbUtils;
+import module.sales;
 
 /**
  *
@@ -29,24 +32,48 @@ public class form_sales extends javax.swing.JFrame {
     public form_sales() {
         initComponents();
         setLocationRelativeTo(null);
-        jTable1.setDefaultEditor(Object.class, null);
+        ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
+        
+        select();
         TableCellRenderer rendererFromHeader = jTable1.getTableHeader().getDefaultRenderer();
         JLabel headerLabel = (JLabel) rendererFromHeader;
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
+        jTable1.setDefaultEditor(Object.class, null);
         model=new DefaultTableModel();
-        jTable1.setModel(model);
-        model.addColumn("Kode Sales");
-        model.addColumn("Kode Manager");
-        model.addColumn("Nama");
-        model.addColumn("Alamat");
-        model.addColumn("No Telp");
-        select();
+        
+        //header
+        JTableHeader header= jTable1.getTableHeader();
+        TableColumnModel colMod = header.getColumnModel();
+        TableColumn tabCol = colMod.getColumn(0);
+       tabCol.setHeaderValue("Kd Sales");
+       TableColumn tabCol1 = colMod.getColumn(1);
+       tabCol1.setHeaderValue("Kd Manager");
+       TableColumn tabCol2 = colMod.getColumn(2);
+       tabCol2.setHeaderValue("Nama");
+       TableColumn tabCol3 = colMod.getColumn(3);
+       tabCol3.setHeaderValue("Alamat");
+       TableColumn tabCol4 = colMod.getColumn(4);
+       tabCol4.setHeaderValue("No Telp");
+        header.repaint();
+        
+      
+//       jTable1.setModel(model);
+//        model.addColumn("Kd Sales");
+//        model.addColumn("Kd Manager");
+//        model.addColumn("Nama");
+//        model.addColumn("Alamat");
+//        model.addColumn("No Telp");
+        
         jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+      
+        
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(65);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(110);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(105);
+        
 
     }
 
@@ -108,7 +135,15 @@ public class form_sales extends javax.swing.JFrame {
             new String [] {
                 "KD Sales", "KD Manager", "Nama", "Alamat", "No Telp"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -270,7 +305,7 @@ public class form_sales extends javax.swing.JFrame {
 
         jLabel9.setText("CV. YRAMA WIDHYA");
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/user2.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sales1.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -279,7 +314,7 @@ public class form_sales extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
@@ -290,7 +325,7 @@ public class form_sales extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(36, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9))
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -327,7 +362,7 @@ public class form_sales extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addGap(18, 18, 18)
@@ -389,13 +424,36 @@ public class form_sales extends javax.swing.JFrame {
         try {
                Connection con = koneksi.GetConnection();
                Statement st = con.createStatement();
-               ResultSet rs = st.executeQuery("Select *from sales where no_sales like '%"+cari.getText()+"%'"
+               ResultSet rs = st.executeQuery("Select * from sales where kd_sales like '%"+cari.getText()+"%'"
                        + "or nama_sales like '%"+cari.getText()+"%'"
                        + "or kd_manager like '%"+cari.getText()+"%'");
-               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+            tabel_tes.addColumn("KD Sales");
+            tabel_tes.addColumn("KD Manager");
+            tabel_tes.addColumn("Nama");
+            tabel_tes.addColumn("Alamat");
+            tabel_tes.addColumn("No. Telp");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_sales"),
+                  rs.getString("kd_manager"),
+                  rs.getString("nama_sales"),
+                  rs.getString("alamat_sales"),
+                  rs.getString("no_telp_sales"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
            } catch (SQLException sqlEx) {
                System.out.println(sqlEx.getMessage());
-           }  
+           } finally {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(110);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(105);
+        }
     }//GEN-LAST:event_cariKeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -410,17 +468,44 @@ public class form_sales extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    
+    
     public void select()
     {
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("Select kd_sales,kd_manager,nama_sales,"
+            ResultSet rs = st.executeQuery("Select kd_sales ,kd_manager ,nama_sales ,"
                     + "alamat_sales,no_telp_sales from sales");
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+            tabel_tes.addColumn("KD Sales");
+            tabel_tes.addColumn("KD Manager");
+            tabel_tes.addColumn("Nama");
+            tabel_tes.addColumn("Alamat");
+            tabel_tes.addColumn("No. Telp");
+        //ResultSet data = anggota.getDataAnggota();
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_sales"),
+                  rs.getString("kd_manager"),
+                  rs.getString("nama_sales"),
+                  rs.getString("alamat_sales"),
+                  rs.getString("no_telp_sales"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        } finally {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(110);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(105);
         }
+        
+
     }
     
     public void kosong()
@@ -477,11 +562,13 @@ public class form_sales extends javax.swing.JFrame {
              if (x !=-1)
              {
                  String kdSales = jTable1.getValueAt(x, 0).toString();
-                 String sql = "delete from sales where kd_sales ='"+kdSales+"'";
-                 Connection con = koneksi.GetConnection();
-                 PreparedStatement pst = con.prepareStatement(sql);
-                 pst.execute();
-                 kosong();
+//                 String sql = "delete from sales where kd_sales ='"+kdSales+"'";
+//                 Connection con = koneksi.GetConnection();
+//                 PreparedStatement pst = con.prepareStatement(sql);
+//                 pst.execute();
+//                 kosong();
+                 sales sales = new sales();
+                 sales.hapus(kdSales);
                  JOptionPane.showMessageDialog(rootPane, "Berhasil di hapus");
              }
              else

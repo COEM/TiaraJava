@@ -10,14 +10,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import koneksi.koneksi;
 import module.Akuntan;
 import module.DataFaktur;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -34,6 +33,8 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
     public ShowDetailFaktur() {
         initComponents();
         setLocationRelativeTo(null);
+          ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
         selectData();
     }
 
@@ -53,7 +54,7 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -62,8 +63,10 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("SURAT PEMESANAN");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("DATA PEMESANAN");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -84,6 +87,7 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ok1.png"))); // NOI18N
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,53 +95,65 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("text");
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancel.png"))); // NOI18N
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jLabel4.setText("SP-12071701");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/detailpemesanan.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton1))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel4)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(21, 21, 21))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -186,6 +202,13 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        bismillah_ta.form.BuatFaktur ni = new bismillah_ta.form.BuatFaktur();
+        ni.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private DefaultTableCellRenderer DEFAULT_RENDERER =  new DefaultTableCellRenderer();
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -231,16 +254,36 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
     
     
     public void selectData(){
-        String a = jLabel4.getText();
+        String a = jLabel2.getText();
         String b = Akuntan.getNoSP();
         try {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("Select kode_buku,judul,jmlh,hrg_satuan from detail_sp inner join buku on kode_buku = kd_buku "
-                    + "inner join harga on kd_buku=id_buku where kode_sp='"+a+"'");
-            table.setModel(DbUtils.resultSetToTableModel(rs));
+                    + "inner join harga on kd_buku=id_buku where kode_sp='"+b+"'");
+//            table.setModel(DbUtils.resultSetToTableModel(rs));
+             DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd Buku");
+                tabel_tes.addColumn("Judul");
+                tabel_tes.addColumn("Jumlah");
+                tabel_tes.addColumn("Hrg Satuan");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kode_buku"),
+                  rs.getString("judul"),
+                  rs.getString("jmlh"),
+                  rs.getString("hrg_satuan"),
+              });
+              table.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+         finally {
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setPreferredWidth(180);
+        table.getColumnModel().getColumn(2).setPreferredWidth(70);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
     }
     
@@ -290,7 +333,7 @@ public class ShowDetailFaktur extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables

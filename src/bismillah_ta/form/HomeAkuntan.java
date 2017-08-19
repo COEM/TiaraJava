@@ -11,12 +11,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import koneksi.koneksi;
 import net.proteanit.sql.DbUtils;
-import bismillah_ta.form.BuatFaktur;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import module.caribuku;
+import javax.swing.table.DefaultTableModel;
 import module.value_faktur;
 import module.Akuntan;
 
@@ -35,6 +35,8 @@ public class HomeAkuntan extends javax.swing.JFrame {
     public HomeAkuntan() {
         initComponents();
         setLocationRelativeTo(null);
+        ImageIcon ico = new ImageIcon("src/image/photo.png");
+        setIconImage(ico.getImage());
         
         select();
     }
@@ -51,9 +53,35 @@ public class HomeAkuntan extends javax.swing.JFrame {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("Select kd_sp,kd_plgn,nama_pelanggan,kd_sales,nama_sales,tgl from cek_pesanan "
                     + "inner join pelanggan on kd_plgn = kd_pelanggan inner join sales on no_sales=kd_sales");
-            jTable2.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Kd SP");
+                tabel_tes.addColumn("KD Pelanggan");
+                tabel_tes.addColumn("Nama Pelanggan");
+                tabel_tes.addColumn("Kd Sales");
+                tabel_tes.addColumn("Nama Sales");
+                tabel_tes.addColumn("Tanggal");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_sp"),
+                  rs.getString("kd_plgn"),
+                  rs.getString("nama_pelanggan"),
+                  rs.getString("kd_sales"),
+                  rs.getString("nama_sales"),
+                  rs.getString("tgl"),
+              });
+              jTable2.setModel(tabel_tes);
+//             jTable2.setModel(DbUtils.resultSetToTableModel(rs));
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+        finally {
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(180);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(75);
         }
     }
     @SuppressWarnings("unchecked")
@@ -66,6 +94,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -98,12 +127,30 @@ public class HomeAkuntan extends javax.swing.JFrame {
         jTable4 = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable7 = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(970, 720));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -112,6 +159,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/createpaper.png"))); // NOI18N
         jButton1.setText("Buat Faktur");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,15 +185,22 @@ public class HomeAkuntan extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
+        jLabel15.setText("jLabel15");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(43, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addGap(48, 48, 48))
         );
         jPanel2Layout.setVerticalGroup(
@@ -154,8 +209,10 @@ public class HomeAkuntan extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Table Pemesanan", jPanel2);
@@ -186,6 +243,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/show.png"))); // NOI18N
         jButton3.setText("Show Details");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,16 +256,20 @@ public class HomeAkuntan extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(58, 58, 58)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(61, 61, 61)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jButton3)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +282,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cek Piutang", jPanel4);
@@ -243,6 +305,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTable5);
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sendmessage.png"))); // NOI18N
         jButton6.setText("Send Message");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,10 +318,10 @@ public class HomeAkuntan extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
                 .addGap(46, 46, 46))
         );
         jPanel5Layout.setVerticalGroup(
@@ -266,9 +329,9 @@ public class HomeAkuntan extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cek J. Tempo", jPanel5);
@@ -324,6 +387,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save1.png"))); // NOI18N
         jButton2.setText("Save");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,7 +435,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pembayaran", jPanel6);
@@ -387,9 +451,20 @@ public class HomeAkuntan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/show.png"))); // NOI18N
         jButton5.setText("DETAILS");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -406,10 +481,10 @@ public class HomeAkuntan extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Lihat Faktur", jPanel7);
@@ -458,31 +533,185 @@ public class HomeAkuntan extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Lihat Pembayaran", jPanel9);
 
+        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel11.setText("Uraian User");
+
+        jLabel12.setText("Username");
+
+        jLabel13.setText("Password");
+
+        jLabel14.setText("Level");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField5)
+                            .addComponent(jTextField6)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Username", "Password", "Level"
+            }
+        ));
+        jTable7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable7MouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jTable7);
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png"))); // NOI18N
+        jButton7.setText("Delete");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/edit2.png"))); // NOI18N
+        jButton8.setText("Edit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/add2.png"))); // NOI18N
+        jButton9.setText("Add");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jButton9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8)
+                    .addComponent(jButton9))
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("User", jPanel10);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home.png"))); // NOI18N
         jButton4.setText("HOME");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home.png"))); // NOI18N
+        jButton10.setText("Home");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(510, 510, 510)
+                .addComponent(jButton4)
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -493,27 +722,34 @@ public class HomeAkuntan extends javax.swing.JFrame {
 
         jLabel3.setText("CV YRAMA WIDYA");
 
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/email.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(30, 30, 30))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 540, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -521,19 +757,20 @@ public class HomeAkuntan extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -555,6 +792,12 @@ public class HomeAkuntan extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
          selectedItem = jTable2.getSelectedRow();
+         int x = jTable2.getSelectedRow();
+        if (x != -1)
+        {
+            Akuntan.NoSP = jTable2.getValueAt(x, 0).toString();
+            jLabel15.setText(Akuntan.getNoSP());
+        } 
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -564,6 +807,7 @@ public class HomeAkuntan extends javax.swing.JFrame {
         tampilHutang();
         tampilFaktur();
         tampilJTempo();
+        tampilUser();
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -608,8 +852,35 @@ public class HomeAkuntan extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("SELECT no_kwitansi,no_jual,no_plgn,nama_pelanggan,tgl,jumlah_bayar from pembayaran "
                     + "inner join pelanggan on no_plgn=kd_pelanggan where no_plgn like '%"+jTextField4.getText()+"%' "
                     + "or nama_pelanggan like '%"+jTextField4.getText()+"%'");
-             jTable4.setModel(DbUtils.resultSetToTableModel(rs));
+//             jTable4.setModel(DbUtils.resultSetToTableModel(rs));
+             DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("No. Kwitansi");
+                tabel_tes.addColumn("No. Faktur");
+                tabel_tes.addColumn("Kd Pelanggan");
+                tabel_tes.addColumn("Nama");
+                tabel_tes.addColumn("Tanggal");
+                tabel_tes.addColumn("Jumlah Bayar");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("no_kwitansi"),
+                  rs.getString("no_jual"),
+                  rs.getString("no_plgn"),
+                  rs.getString("nama_pelanggan"),
+                  rs.getString("tgl"),
+                  rs.getString("jumlah_bayar"),
+              });
+              jTable4.setModel(tabel_tes);
+               
+            }
         } catch (Exception e) {
+        }
+        finally {
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(180);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(75);
         }
     }//GEN-LAST:event_jTextField4KeyReleased
 
@@ -618,14 +889,71 @@ public class HomeAkuntan extends javax.swing.JFrame {
         int x = jTable5.getSelectedRow();
         if(x != -1){
             Akuntan.nomor = jTable5.getValueAt(x, 5).toString();
+            Akuntan.NoSP = jTable5.getValueAt(x, 0).toString();
             Akuntan.namaPlgn = jTable5.getValueAt(x, 2).toString();
         }
+        
     }//GEN-LAST:event_jTable5MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         SmsGateway();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        bismillah_ta.form.tampilFaktur yo = new bismillah_ta.form.tampilFaktur();
+        yo.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        bismillah_ta.form.form_utama yo = new bismillah_ta.form.form_utama();
+        yo.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+        int x = jTable3.getSelectedRow();
+        if(x != -1){
+            Akuntan.noFaktur = jTable3.getValueAt(x, 0).toString();
+        }
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        bismillah_ta.form.form_utama yo = new bismillah_ta.form.form_utama();
+        yo.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jTable7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseClicked
+        // TODO add your handling code here:
+        int x = jTable7.getSelectedRow();
+        if (x != -1)
+        {
+            jTextField5.setText(jTable7.getValueAt(x, 0).toString());
+            jTextField6.setText(jTable7.getValueAt(x, 1).toString());
+            jTextField7.setText(jTable7.getValueAt(x, 2).toString());
+        } 
+    }//GEN-LAST:event_jTable7MouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        editUser();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        addUser();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        deleteUser();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     public static String tmpltgl(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -642,9 +970,29 @@ public class HomeAkuntan extends javax.swing.JFrame {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT kd_pelanggan,nama_pelanggan,limits,saldo from pelanggan "
                     + "inner join saldo_plgn on kd_pelanggan=id_pelanggan where saldo>0 ");
-             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("KD Pelanggan");
+                tabel_tes.addColumn("Nama Pelanggan");
+                tabel_tes.addColumn("Limits");
+                tabel_tes.addColumn("Saldo");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("kd_pelanggan"),
+                  rs.getString("nama_pelanggan"),
+                  rs.getString("limits"),
+                  rs.getString("saldo"),
+              });
+              jTable1.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+        finally {
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
         }
     }
     
@@ -692,7 +1040,25 @@ public class HomeAkuntan extends javax.swing.JFrame {
             Connection con = koneksi.GetConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * from faktur_jual ");
-             jTable3.setModel(DbUtils.resultSetToTableModel(rs));
+//             jTable3.setModel(DbUtils.resultSetToTableModel(rs));
+             DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("No Faktur");
+                tabel_tes.addColumn("No SP");
+                tabel_tes.addColumn("Kd Pelanggan");
+                tabel_tes.addColumn("Kd Sales");
+                tabel_tes.addColumn("Tanggal Masuk");
+                tabel_tes.addColumn("Jatuh Tempo");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("no_fjual"),
+                  rs.getString("no_sp"),
+                  rs.getString("kode_plgn"),
+                  rs.getString("kode_sales"),
+                  rs.getString("j_tgl"),
+                  rs.getString("j_tempo"),
+              });
+              jTable3.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
         }
@@ -708,9 +1074,35 @@ public class HomeAkuntan extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("SELECT j_tempo,no_fjual,nama_pelanggan,saldo,nama_sales,no_telp_sales from faktur_jual "
                     + "inner join pelanggan on kd_pelanggan=kode_plgn inner join sales on kd_sales=no_sales "
                     + "inner join piutang on kode_fjual=no_fjual where saldo>0 and now()>j_tempo");
-             jTable5.setModel(DbUtils.resultSetToTableModel(rs));
+//             jTable5.setModel(DbUtils.resultSetToTableModel(rs));
+            DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Jatuh Tempo");
+                tabel_tes.addColumn("No Faktur");
+                tabel_tes.addColumn("Nama Pelanggan");
+                tabel_tes.addColumn("Saldo");
+                tabel_tes.addColumn("Nama Sales");
+                tabel_tes.addColumn("No Telp Sales");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("j_tempo"),
+                  rs.getString("no_fjual"),
+                  rs.getString("nama_pelanggan"),
+                  rs.getString("saldo"),
+                  rs.getString("nama_sales"),
+                  rs.getString("no_telp_sales"),
+              });
+              jTable5.setModel(tabel_tes);
+            }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
+        }
+        finally {
+        jTable5.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable5.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable5.getColumnModel().getColumn(2).setPreferredWidth(180);
+        jTable5.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTable5.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTable5.getColumnModel().getColumn(5).setPreferredWidth(70);
         }
     }
      
@@ -733,6 +1125,83 @@ public class HomeAkuntan extends javax.swing.JFrame {
                     
          } catch (SQLException sqlEx) {
              System.out.println(sqlEx.getMessage());
+         }
+     }
+     
+     //User------------------------------------------------------------------------------------------------------------------------
+     public void tampilUser(){
+         try {
+             Connection con = koneksi.GetConnection();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery("SELECT * from user");
+             DefaultTableModel tabel_tes = new DefaultTableModel();
+                tabel_tes.addColumn("Username");
+                tabel_tes.addColumn("Password");
+                tabel_tes.addColumn("Level");
+            while (rs.next()) {            
+              tabel_tes.addRow(new Object[]{
+                  rs.getString("username"),
+                  rs.getString("password"),
+                  rs.getString("level"),
+              });
+              jTable7.setModel(tabel_tes);
+            }
+         } catch (SQLException sqlEx) {
+             System.out.println(sqlEx.getMessage());
+         }
+         finally {
+        jTable7.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable7.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable7.getColumnModel().getColumn(2).setPreferredWidth(80);
+        }
+     }
+     
+     public void addUser(){
+         String value1 = jTextField5.getText();
+         String value2 = jTextField6.getText();
+         String value3 = jTextField7.getText();
+         try {
+             if("".equals(jTextField5.getText()) || "".equals(jTextField6.getText()) || "".equals(jTextField7.getText()))
+                {
+                    JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+              else 
+                {
+                    Akuntan.addUser(value1, value2, value3);
+                    JOptionPane.showMessageDialog(this,"Data berhasil ditambahkan");
+                     this.jTextField5.setText(null);
+                     this.jTextField6.setText(null);
+                     this.jTextField7.setText(null);
+                }
+         } catch (Exception e) {
+             System.out.println(e.getMessage());
+         }
+     }
+     
+     public void editUser(){
+         String value1 = jTextField5.getText();
+         String value2 = jTextField6.getText();
+         String value3 = jTextField7.getText();
+         try {
+             Akuntan.editUser(value1, value2, value3);
+             JOptionPane.showMessageDialog(this,"Data berhasil diupdate");
+                     this.jTextField5.setText(null);
+                     this.jTextField6.setText(null);
+                     this.jTextField7.setText(null);
+         } catch (Exception e) {
+             System.out.println(e.getMessage());
+         }
+     }
+     
+     public void deleteUser(){
+         String value1 = jTextField5.getText();
+         try {
+             Akuntan.deleteUser(value1);
+             JOptionPane.showMessageDialog(this,"Data berhasil dihapus");
+                     this.jTextField5.setText(null);
+                     this.jTextField6.setText(null);
+                     this.jTextField7.setText(null);
+         } catch (Exception e) {
          }
      }
      
@@ -776,12 +1245,22 @@ public class HomeAkuntan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -791,6 +1270,8 @@ public class HomeAkuntan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -804,16 +1285,22 @@ public class HomeAkuntan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField kwitansi;
     private javax.swing.JTextField no_Faktur;
     private javax.swing.JTextField plgn;

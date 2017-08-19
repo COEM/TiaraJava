@@ -39,14 +39,14 @@
 					<textElement>
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
+					<text><![CDATA[Laporan PerSales]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="SubTitle" x="157" y="66" width="249" height="29" uuid="56dfa3d4-25eb-4d28-8442-a6ac90fbb283"/>
 					<textElement>
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
+					<text><![CDATA[CV. YRAMA WIDYA]]></text>
 				</staticText>
 			</frame>
 			<frame>
@@ -71,14 +71,14 @@
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[nama_sales]]></text>
+				<text><![CDATA[Nama Sales]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="277" y="7" width="277" height="18" forecolor="#000000" uuid="141b88c6-cd34-485c-b9f2-74655bb226a0"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[subtotal]]></text>
+				<text><![CDATA[Subtotal]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

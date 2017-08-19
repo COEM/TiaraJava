@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import koneksi.koneksi;
+import module.user;
 /**
  *
  * @author Tiara Ridha
@@ -51,7 +52,6 @@ public class form_login extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
 
         jLabel4.setText("jLabel4");
@@ -83,14 +83,6 @@ public class form_login extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setFont(new java.awt.Font("Times New Roman", 2, 11)); // NOI18N
-        jCheckBox1.setText("Show Password");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel7.setBackground(new java.awt.Color(242, 243, 245));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bg3.png"))); // NOI18N
 
@@ -103,14 +95,9 @@ public class form_login extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(261, 261, 261)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(162, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(143, 143, 143)
-                    .addComponent(jCheckBox1)
-                    .addContainerGap(263, Short.MAX_VALUE)))
+                    .addGap(225, 225, 225)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(157, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,13 +108,8 @@ public class form_login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton1)
-                    .addContainerGap(249, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(245, Short.MAX_VALUE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(229, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -206,6 +188,13 @@ public class form_login extends javax.swing.JFrame {
                    password.setText("");
                    username.requestFocus();
                }
+               
+               user.setType(result.getString("level"));
+//               if(result.getString("level").equals("gudang")){
+////                   bismillah_ta.form.form_utama menu = new bismillah_ta.form.form_utama();
+////                   menu.
+////                   bismillah_ta.form.form_utama
+//               }
            }
            else
            {
@@ -221,15 +210,7 @@ public class form_login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-        if (jCheckBox1.isSelected()) {
-            password.setEchoChar((char) 0);
-        } else {
-            password.setEchoChar('\u25cf');
-        }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -272,7 +253,6 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
